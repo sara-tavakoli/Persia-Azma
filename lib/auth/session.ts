@@ -1,6 +1,12 @@
 import "server-only";
 import { cookies } from "next/headers";
-import { jwtVerify, createRemoteJWKSet } from "jose";
+import {
+  jwtVerify,
+  createRemoteJWKSet,
+  importX509,
+  decodeProtectedHeader,
+  type JWTPayload,
+} from "jose";
 import { getGoogleAccessToken } from "@/lib/auth/google-token";
 
 // We deliberately avoid firebase-admin/auth here: its jwks-rsa dependency
@@ -18,14 +24,42 @@ const SESSION_MAX_AGE_MS = 5 * 24 * 60 * 60 * 1000; // 5 days
 
 const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID!;
 
-// ID tokens and session cookies are both signed by the same Google service
-// account key (securetoken@system.gserviceaccount.com), just with a
-// different `iss` claim — one JWKS set covers both.
-const secureTokenJwks = createRemoteJWKSet(
+// ID tokens are signed by Google's shared secure-token key set (standard JWKS).
+const idTokenJwks = createRemoteJWKSet(
   new URL(
     "https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"
   )
 );
+
+// Session cookies minted via Identity Toolkit's createSessionCookie are
+// signed with a *different*, legacy key set that's only published as X.509
+// certs (kid -> PEM cert), not a standard JWKS.
+const SESSION_CERTS_URL =
+  "https://www.googleapis.com/identitytoolkit/v3/relyingparty/publicKeys";
+let sessionCertsCache: { certs: Record<string, string>; expiresAt: number } | null =
+  null;
+
+async function refreshSessionCerts() {
+  const res = await fetch(SESSION_CERTS_URL);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch session cookie certs: ${res.status}`);
+  }
+  const certs = (await res.json()) as Record<string, string>;
+  sessionCertsCache = { certs, expiresAt: Date.now() + 60 * 60 * 1000 };
+}
+
+async function getSessionCert(kid: string): Promise<string> {
+  if (!sessionCertsCache || sessionCertsCache.expiresAt < Date.now()) {
+    await refreshSessionCerts();
+  }
+  let cert = sessionCertsCache!.certs[kid];
+  if (!cert) {
+    await refreshSessionCerts();
+    cert = sessionCertsCache!.certs[kid];
+  }
+  if (!cert) throw new Error("unknown_session_cert_kid");
+  return cert;
+}
 
 type DecodedToken = {
   uid: string;
@@ -33,15 +67,7 @@ type DecodedToken = {
   admin?: boolean;
 };
 
-async function verifyGoogleJwt(
-  token: string,
-  jwks: ReturnType<typeof createRemoteJWKSet>,
-  issuer: string
-): Promise<DecodedToken> {
-  const { payload } = await jwtVerify(token, jwks, {
-    issuer,
-    audience: projectId,
-  });
+function toDecodedToken(payload: JWTPayload): DecodedToken {
   return {
     uid: payload.sub!,
     email: typeof payload.email === "string" ? payload.email : undefined,
@@ -52,11 +78,25 @@ async function verifyGoogleJwt(
 export async function verifyIdTokenAndGetClaims(
   idToken: string
 ): Promise<DecodedToken> {
-  return verifyGoogleJwt(
-    idToken,
-    secureTokenJwks,
-    `https://securetoken.google.com/${projectId}`
-  );
+  const { payload } = await jwtVerify(idToken, idTokenJwks, {
+    issuer: `https://securetoken.google.com/${projectId}`,
+    audience: projectId,
+  });
+  return toDecodedToken(payload);
+}
+
+async function verifySessionCookieJwt(
+  sessionCookie: string
+): Promise<DecodedToken> {
+  const { kid } = decodeProtectedHeader(sessionCookie);
+  if (!kid) throw new Error("missing_kid");
+  const cert = await getSessionCert(kid);
+  const key = await importX509(cert, "RS256");
+  const { payload } = await jwtVerify(sessionCookie, key, {
+    issuer: `https://session.firebase.google.com/${projectId}`,
+    audience: projectId,
+  });
+  return toDecodedToken(payload);
 }
 
 export async function createSessionCookie(idToken: string) {
@@ -98,11 +138,7 @@ export async function verifySession(): Promise<AdminSession | null> {
   if (!sessionCookie) return null;
 
   try {
-    const decoded = await verifyGoogleJwt(
-      sessionCookie,
-      secureTokenJwks,
-      `https://session.firebase.google.com/${projectId}`
-    );
+    const decoded = await verifySessionCookieJwt(sessionCookie);
     if (decoded.admin !== true) return null;
     return { uid: decoded.uid, email: decoded.email };
   } catch {
