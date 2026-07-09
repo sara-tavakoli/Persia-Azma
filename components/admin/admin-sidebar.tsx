@@ -38,13 +38,18 @@ export function AdminSidebar({ email }: { email?: string }) {
   return (
     <aside className="flex w-64 shrink-0 flex-col border-e border-border bg-background">
       <div className="border-b border-border px-5 py-4">
-        <Image
-          src="/brand/logo-alt.png"
-          alt="Persia Azma System"
-          width={548}
-          height={195}
-          className="h-7 w-auto"
-        />
+        <div className="flex items-center gap-2">
+          <Image
+            src="/brand/logo-main.png"
+            alt="Persia Azma System"
+            width={300}
+            height={300}
+            className="size-7"
+          />
+          <span className="font-heading text-sm font-semibold">
+            پرشیا آزما سیستم
+          </span>
+        </div>
         {email && (
           <p className="mt-2 truncate text-xs text-muted-foreground" dir="ltr">
             {email}

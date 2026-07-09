@@ -18,6 +18,7 @@ import { Menu, MessageCircle } from "lucide-react";
 
 export function MobileNav() {
   const t = useTranslations("nav");
+  const tMeta = useTranslations("meta");
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,14 +32,15 @@ export function MobileNav() {
       />
       <SheetContent side="right">
         <SheetHeader>
-          <SheetTitle>
+          <SheetTitle className="flex items-center gap-2">
             <Image
-              src="/brand/logo-alt.png"
+              src="/brand/logo-main.png"
               alt="Persia Azma System"
-              width={548}
-              height={195}
-              className="h-7 w-auto"
+              width={300}
+              height={300}
+              className="size-7"
             />
+            {tMeta("siteName")}
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-1 px-4">

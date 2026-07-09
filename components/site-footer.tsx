@@ -14,13 +14,18 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-muted/40">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <Image
-            src="/brand/logo-alt.png"
-            alt="Persia Azma System"
-            width={548}
-            height={195}
-            className="h-9 w-auto"
-          />
+          <div className="flex items-center gap-2">
+            <Image
+              src="/brand/logo-main.png"
+              alt="Persia Azma System"
+              width={300}
+              height={300}
+              className="size-9"
+            />
+            <span className="font-heading text-sm font-semibold">
+              {tMeta("siteName")}
+            </span>
+          </div>
           <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
             {t("description")}
           </p>
