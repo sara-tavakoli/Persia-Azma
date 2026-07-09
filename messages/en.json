@@ -15,7 +15,7 @@
     "requestQuote": "Request a Consultation"
   },
   "footer": {
-    "description": "An independent calibration and quality-control consultancy for medical, imaging, and industrial equipment — helping you make informed purchasing and operating decisions.",
+    "description": "An independent calibration and quality-control consultancy for medical, imaging, and industrial equipment helping you make informed purchasing and operating decisions.",
     "quickLinks": "Quick Links",
     "contactInfo": "Contact Info",
     "hours": "Working Hours",
@@ -38,7 +38,7 @@
     "hero": {
       "eyebrow": "Independent Calibration & Quality Control Consultants",
       "title": "Precision and confidence in every measurement",
-      "subtitle": "Persia Azma System delivers calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% measurement accuracy — for hospitals, clinics, and industry.",
+      "subtitle": "Persia Azma System delivers calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% measurement accuracy for hospitals, clinics, and industry.",
       "ctaPrimary": "Get a Free Consultation",
       "ctaSecondary": "View Services"
     },
@@ -59,7 +59,7 @@
     "whyUs3Title": "On-Site Service",
     "whyUs3Body": "Our technical team is ready to provide calibration services at your hospital, laboratory, or factory.",
     "whyUs4Title": "Independent Advice",
-    "whyUs4Body": "As an independent consultancy, we put your interests first — not the sale of specific equipment.",
+    "whyUs4Body": "As an independent consultancy, we put your interests first not the sale of specific equipment.",
     "processTitle": "How We Work",
     "processSubtitle": "From your first request to the final report, in four transparent steps",
     "process1Title": "Submit a Request",
@@ -108,9 +108,9 @@
   "about": {
     "title": "About Persia Azma System",
     "subtitle": "Your independent partner in precision and quality",
-    "introBody": "As an independent consultancy, Persia Azma System provides calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% accuracy — for hospitals, clinics, and industry. We help our clients make informed decisions about purchasing and operating their equipment.",
+    "introBody": "As an independent consultancy, Persia Azma System provides calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% accuracy for hospitals, clinics, and industry. We help our clients make informed decisions about purchasing and operating their equipment.",
     "missionTitle": "Our Mission",
-    "missionBody": "Our mission is to provide complete, focused solutions that ensure the safe, accurate, and cost-effective performance of medical and industrial equipment — through rigorous technical analysis, expert consulting, and operating-cost reduction, without ever compromising quality or safety.",
+    "missionBody": "Our mission is to provide complete, focused solutions that ensure the safe, accurate, and cost-effective performance of medical and industrial equipment through rigorous technical analysis, expert consulting, and operating-cost reduction, without ever compromising quality or safety.",
     "locationTitle": "Our Location",
     "locationBody": "Persia Azma System's headquarters is located at the Fars Science & Technology Park in Shiraz, and our technical team is ready to provide on-site services at hospitals, laboratories, and factories across the country.",
     "parametersTitle": "Parameters We Calibrate",
