@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { createSessionCookie, SESSION_COOKIE_NAME } from "@/lib/auth/session";
-import { getAdminAuth } from "@/lib/firebase-admin";
 
 export async function POST(request: Request) {
   const { idToken } = await request.json().catch(() => ({ idToken: null }));
@@ -21,25 +20,13 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error("[DEBUG session error]", err);
+    console.error("Failed to create admin session:", err);
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 }
 
 export async function DELETE() {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME)?.value;
-
-  if (sessionCookie) {
-    try {
-      const auth = await getAdminAuth();
-      const decoded = await auth.verifySessionCookie(sessionCookie);
-      await auth.revokeRefreshTokens(decoded.uid);
-    } catch {
-      // session already invalid — nothing to revoke
-    }
-  }
-
   cookieStore.delete(SESSION_COOKIE_NAME);
   return NextResponse.json({ ok: true });
 }

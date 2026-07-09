@@ -19,20 +19,11 @@ function getAdminApp(): App {
 export const adminApp = getAdminApp();
 export const adminDb = getFirestore(adminApp);
 
-// auth/storage pull in extra dependency graphs (auth -> jwks-rsa -> jose,
-// which fails to bundle for serverless functions evaluated at request
-// time — see incident where importing `firebase-admin/auth` eagerly broke
-// every dynamic route, even ones that never touch auth). Load lazily so
-// only routes that actually call these functions pay for/risk that import.
-let _adminAuth: import("firebase-admin/auth").Auth | undefined;
-export async function getAdminAuth() {
-  if (!_adminAuth) {
-    const { getAuth } = await import("firebase-admin/auth");
-    _adminAuth = getAuth(adminApp);
-  }
-  return _adminAuth;
-}
-
+// storage pulls in an extra dependency graph, so it's loaded lazily —
+// only routes that actually upload files pay for that import. (auth is
+// handled separately via lib/auth/session.ts + lib/auth/google-token.ts,
+// not the firebase-admin/auth SDK — see the comment at the top of
+// lib/auth/session.ts for why.)
 let _adminStorage: import("firebase-admin/storage").Storage | undefined;
 export async function getAdminStorage() {
   if (!_adminStorage) {
