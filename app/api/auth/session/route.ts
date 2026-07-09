@@ -20,7 +20,8 @@ export async function POST(request: Request) {
       maxAge,
     });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("[DEBUG session error]", err);
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 }
