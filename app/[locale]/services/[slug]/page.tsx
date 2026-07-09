@@ -13,6 +13,8 @@ import { getServiceBySlug, getServices } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { FadeIn } from "@/components/fade-in";
+import { alternatesForSlugs } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
 export async function generateStaticParams() {
   const services = await getServices();
@@ -32,6 +34,10 @@ export async function generateMetadata({
   return {
     title: service.title[locale],
     description: service.shortDescription[locale],
+    alternates: alternatesForSlugs(
+      `/fa/services/${service.slug.fa}`,
+      `/en/services/${service.slug.en}`
+    ),
   };
 }
 
@@ -48,10 +54,40 @@ export default async function ServiceDetailPage({
 
   const t = await getTranslations("services");
   const tCommon = await getTranslations("common");
+  const tNav = await getTranslations("nav");
   const palette = categoryColorClasses[service.category];
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: tNav("home"),
+        item: `${siteConfig.url}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: tNav("services"),
+        item: `${siteConfig.url}/${locale}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title[locale],
+        item: `${siteConfig.url}/${locale}/services/${slug}`,
+      },
+    ],
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <section className="bg-mesh bg-noise relative overflow-hidden border-b border-border bg-background">
         <FadeIn className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
           <div

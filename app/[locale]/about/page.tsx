@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
+import { alternatesForPath } from "@/lib/seo";
 import { Target, MapPin } from "lucide-react";
 
 export function generateStaticParams() {
@@ -16,7 +17,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "about" });
-  return { title: t("title"), description: t("subtitle") };
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+    alternates: alternatesForPath("/about"),
+  };
 }
 
 export default async function AboutPage({

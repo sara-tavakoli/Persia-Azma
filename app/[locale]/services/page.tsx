@@ -10,6 +10,7 @@ import { routing } from "@/i18n/routing";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { cn } from "@/lib/utils";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
+import { alternatesForPath } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -22,7 +23,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "services" });
-  return { title: t("title"), description: t("subtitle") };
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+    alternates: alternatesForPath("/services"),
+  };
 }
 
 export default async function ServicesPage({

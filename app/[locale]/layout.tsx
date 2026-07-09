@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { vazirmatn, inter } from "../fonts";
 import { siteConfig } from "@/lib/site-config";
+import { alternatesForPath } from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Toaster } from "@/components/ui/sonner";
@@ -29,12 +30,7 @@ export async function generateMetadata({
       template: `%s | ${t("siteName")}`,
     },
     description: t("defaultDescription"),
-    alternates: {
-      languages: {
-        fa: "/fa",
-        en: "/en",
-      },
-    },
+    alternates: alternatesForPath(""),
     openGraph: {
       title: t("defaultTitle"),
       description: t("defaultDescription"),

@@ -53,7 +53,7 @@ export function SiteFooter() {
             </li>
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 size-4 shrink-0" />
-              <span className="flex flex-col">
+              <span className="flex flex-col gap-1.5 py-0.5">
                 {siteConfig.phones.map((p) => (
                   <a key={p} href={`tel:${p.replace(/-/g, "")}`} dir="ltr" className="text-start hover:text-foreground">
                     {p}

@@ -6,6 +6,7 @@ import { getCertificates } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { BadgeCheck } from "lucide-react";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
+import { alternatesForPath } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -18,7 +19,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "certificates" });
-  return { title: t("title"), description: t("subtitle") };
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+    alternates: alternatesForPath("/certificates"),
+  };
 }
 
 export default async function CertificatesPage({

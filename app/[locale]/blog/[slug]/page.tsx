@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/data";
-import { routing } from "@/i18n/routing";
+import { alternatesForSlugs } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
 export async function generateStaticParams() {
   const [faPosts, enPosts] = await Promise.all([
@@ -25,7 +26,14 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const post = await getBlogPostBySlug(locale, slug);
   if (!post) return {};
-  return { title: post.title[locale], description: post.excerpt[locale] };
+  return {
+    title: post.title[locale],
+    description: post.excerpt[locale],
+    alternates: alternatesForSlugs(
+      `/fa/blog/${post.slug.fa}`,
+      `/en/blog/${post.slug.en}`
+    ),
+  };
 }
 
 export default async function BlogPostPage({
@@ -41,8 +49,24 @@ export default async function BlogPostPage({
 
   const t = await getTranslations("blog");
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title[locale],
+    description: post.excerpt[locale],
+    author: { "@type": "Person", name: post.author },
+    datePublished: new Date(post.publishedAt).toISOString(),
+    dateModified: new Date(post.updatedAt).toISOString(),
+    mainEntityOfPage: `${siteConfig.url}/${locale}/blog/${slug}`,
+    ...(post.coverImage ? { image: post.coverImage.url } : {}),
+  };
+
   return (
     <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className="mb-8 text-center">
         <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
           {post.title[locale]}

@@ -88,8 +88,8 @@
   --cat-imaging-foreground: oklch(0.98 0.01 305);
   --cat-industrial: oklch(0.62 0.13 195);
   --cat-industrial-foreground: oklch(0.98 0.01 195);
-  --cat-consulting: oklch(0.7 0.16 55);
-  --cat-consulting-foreground: oklch(0.2 0.04 55);
+  --cat-consulting: oklch(0.48 0.15 55);
+  --cat-consulting-foreground: oklch(0.98 0.02 55);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

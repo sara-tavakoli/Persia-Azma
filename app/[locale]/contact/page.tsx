@@ -13,6 +13,7 @@ import { getServices } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { alternatesForPath } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -25,7 +26,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "contact" });
-  return { title: t("title"), description: t("subtitle") };
+  return {
+    title: t("title"),
+    description: t("subtitle"),
+    alternates: alternatesForPath("/contact"),
+  };
 }
 
 export default async function ContactPage({
@@ -66,13 +71,13 @@ export default async function ContactPage({
               <h2 className="font-heading text-lg font-semibold">
                 {t("info.phones")}
               </h2>
-              <div className="mt-1 flex flex-col gap-1">
+              <div className="mt-1 flex flex-col gap-1.5">
                 {siteConfig.phones.map((p) => (
                   <a
                     key={p}
                     href={`tel:${p.replace(/-/g, "")}`}
                     dir="ltr"
-                    className="flex items-center gap-2 text-start text-sm text-muted-foreground hover:text-foreground"
+                    className="flex items-center gap-2 py-0.5 text-start text-sm text-muted-foreground hover:text-foreground"
                   >
                     <Phone className="size-4 shrink-0" />
                     {p}
