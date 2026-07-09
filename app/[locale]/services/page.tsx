@@ -1,13 +1,15 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/page-hero";
 import { ServiceIcon } from "@/components/service-icon";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { getServices } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { categoryColorClasses } from "@/lib/category-colors";
+import { getServiceImage } from "@/lib/service-images";
 import { cn } from "@/lib/utils";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { alternatesForPath } from "@/lib/seo";
@@ -51,12 +53,20 @@ export default async function ServicesPage({
             const palette = categoryColorClasses[service.category];
             return (
               <FadeInStaggerItem key={service.id}>
-                <Link href={`/services/${service.slug[locale]}`} className="block h-full">
-                  <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <CardHeader>
+                <Link href={`/services/${service.slug[locale]}`} className="group block h-full">
+                  <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="relative aspect-16/9 w-full overflow-hidden">
+                      <Image
+                        src={getServiceImage(service.id)}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-transparent" />
                       <div
                         className={cn(
-                          "mb-2 flex size-11 items-center justify-center rounded-xl ring-1",
+                          "absolute bottom-3 flex size-10 items-center justify-center rounded-lg ring-1 backdrop-blur-sm start-3",
                           palette.bg,
                           palette.text,
                           palette.ring
@@ -64,16 +74,18 @@ export default async function ServicesPage({
                       >
                         <ServiceIcon iconKey={service.iconKey} className="size-5" />
                       </div>
+                    </div>
+                    <CardHeader className="pt-4">
                       <CardTitle>{service.title[locale]}</CardTitle>
                       <CardDescription>
                         {service.shortDescription[locale]}
                       </CardDescription>
                     </CardHeader>
-                    <div className="px-(--card-spacing)">
+                    <CardContent className="pb-4">
                       <Badge variant="outline" className={cn(palette.text, "border-current/25")}>
                         {t(`categories.${service.category}`)}
                       </Badge>
-                    </div>
+                    </CardContent>
                   </Card>
                 </Link>
               </FadeInStaggerItem>

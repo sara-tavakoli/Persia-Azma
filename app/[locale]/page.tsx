@@ -15,7 +15,7 @@ import { getServices, getCertificates } from "@/lib/data";
 import { homeStats } from "@/lib/placeholder-data";
 import { ServiceIcon } from "@/components/service-icon";
 import { categoryColorClasses } from "@/lib/category-colors";
-import { categoryImages } from "@/lib/category-images";
+import { getServiceImage } from "@/lib/service-images";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import {
   ArrowLeft,
@@ -25,9 +25,14 @@ import {
   Award,
   MapPinned,
   UserCheck,
+  ClipboardList,
+  SearchCheck,
+  Gauge,
+  FileCheck2,
 } from "lucide-react";
 
 const whyUsIcons = [ShieldCheck, Award, MapPinned, UserCheck];
+const processIcons = [ClipboardList, SearchCheck, Gauge, FileCheck2];
 
 export default async function HomePage({
   params,
@@ -51,6 +56,12 @@ export default async function HomePage({
     title: t(`whyUs${i}Title` as "whyUs1Title"),
     body: t(`whyUs${i}Body` as "whyUs1Body"),
     Icon: whyUsIcons[i - 1],
+  }));
+
+  const process = [1, 2, 3, 4].map((i) => ({
+    title: t(`process${i}Title` as "process1Title"),
+    body: t(`process${i}Body` as "process1Body"),
+    Icon: processIcons[i - 1],
   }));
 
   return (
@@ -168,7 +179,7 @@ export default async function HomePage({
                   <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
                     <div className="relative aspect-16/9 w-full overflow-hidden">
                       <Image
-                        src={categoryImages[service.category]}
+                        src={getServiceImage(service.id)}
                         alt=""
                         fill
                         sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
@@ -205,6 +216,35 @@ export default async function HomePage({
         </FadeInStagger>
       </section>
 
+      {/* How It Works */}
+      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+            {t("processTitle")}
+          </h2>
+          <p className="mt-3 text-muted-foreground">{t("processSubtitle")}</p>
+        </FadeIn>
+
+        <FadeInStagger className="relative mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {process.map(({ title, body, Icon }, i) => (
+            <FadeInStaggerItem key={title} className="relative">
+              <div className="flex items-center gap-3">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                  <Icon className="size-5" />
+                </div>
+                <span className="font-heading text-2xl font-bold text-muted-foreground/40">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <h3 className="mt-4 font-heading font-semibold">{title}</h3>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                {body}
+              </p>
+            </FadeInStaggerItem>
+          ))}
+        </FadeInStagger>
+      </section>
+
       {/* Why Us */}
       <section className="border-y border-border bg-muted/40">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
@@ -212,7 +252,7 @@ export default async function HomePage({
             <FadeIn className="relative order-2 lg:order-1">
               <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
                 <Image
-                  src="/images/consulting-meeting.jpg"
+                  src="/images/facility-interior.jpg"
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 560px, 100vw"

@@ -14,7 +14,7 @@ import { categoryColorClasses } from "@/lib/category-colors";
 import { FadeIn } from "@/components/fade-in";
 import { alternatesForSlugs } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
-import { categoryImages } from "@/lib/category-images";
+import { getServiceImage } from "@/lib/service-images";
 import Image from "next/image";
 
 export async function generateStaticParams() {
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({
       <div className="mx-auto max-w-3xl px-4 pt-12 sm:px-6">
         <div className="relative aspect-21/9 overflow-hidden rounded-3xl shadow-lg ring-1 ring-black/5">
           <Image
-            src={categoryImages[service.category]}
+            src={getServiceImage(service.id)}
             alt=""
             fill
             sizes="(min-width: 768px) 768px, 100vw"
