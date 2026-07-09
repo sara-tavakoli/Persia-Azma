@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "siteName": "Persia Azma System",
+    "defaultTitle": "Persia Azma System | Calibration & Quality Control for Medical, Imaging & Industrial Equipment",
+    "defaultDescription": "Persia Azma System provides calibration and quality-control services for medical, imaging, industrial, and laboratory equipment in Shiraz, Iran, with over 99.99% measurement accuracy."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "certificates": "Certificates",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "requestQuote": "Request a Consultation"
+  },
+  "footer": {
+    "description": "An independent calibration and quality-control consultancy for medical, imaging, and industrial equipment — helping you make informed purchasing and operating decisions.",
+    "quickLinks": "Quick Links",
+    "contactInfo": "Contact Info",
+    "hours": "Working Hours",
+    "hoursValue": "Sat–Wed: 8:00–16:00 | Thu: 8:00–12:00",
+    "rights": "All rights reserved.",
+    "address": "Shiraz, Fars Science & Technology Park"
+  },
+  "common": {
+    "readMore": "Read more",
+    "learnMore": "Learn more",
+    "viewAll": "View all",
+    "getInTouch": "Get in touch",
+    "sendMessage": "Send message",
+    "sendRequest": "Send request",
+    "loading": "Loading...",
+    "backToHome": "Back to home",
+    "language": "Language"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Independent Calibration & Quality Control Consultants",
+      "title": "Precision and confidence in every measurement",
+      "subtitle": "Persia Azma System delivers calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% measurement accuracy — for hospitals, clinics, and industry.",
+      "ctaPrimary": "Get a Free Consultation",
+      "ctaSecondary": "View Services"
+    },
+    "stats": {
+      "accuracy": "Measurement Accuracy",
+      "clients": "Satisfied Clients",
+      "years": "Years of Experience",
+      "services": "Specialized Services"
+    },
+    "servicesTitle": "Our Services",
+    "servicesSubtitle": "Specialized solutions tailored to your needs",
+    "whyUsTitle": "Why Persia Azma System?",
+    "certificatesTitle": "Licenses & Accreditations",
+    "certificatesSubtitle": "Operating under recognized national and international authorities",
+    "blogTitle": "Latest Articles",
+    "ctaBannerTitle": "Need a precise assessment of your equipment?",
+    "ctaBannerSubtitle": "Get in touch with our specialists today."
+  },
+  "services": {
+    "title": "Calibration & Quality Control Services",
+    "subtitle": "Our specialized services span four core areas",
+    "categories": {
+      "medical": "Medical Equipment",
+      "imaging": "Imaging Equipment",
+      "industrial": "Industrial & Laboratory Equipment",
+      "consulting": "Consulting & Cost Reduction"
+    },
+    "relatedCertificates": "Related Certificates",
+    "relatedPosts": "Related Articles",
+    "ctaTitle": "Request a consultation for this service"
+  },
+  "certificates": {
+    "title": "Certificates & Accreditations",
+    "subtitle": "Persia Azma System operates under the supervision and licensing of official national authorities"
+  },
+  "blog": {
+    "title": "Articles & News",
+    "subtitle": "The latest expert content on calibration and quality control",
+    "by": "By",
+    "publishedOn": "Published on",
+    "relatedPosts": "Related Posts",
+    "empty": "No articles have been published yet."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to common questions about our calibration services"
+  },
+  "about": {
+    "title": "About Persia Azma System",
+    "subtitle": "Your independent partner in precision and quality",
+    "missionTitle": "Our Mission",
+    "locationTitle": "Our Location"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're ready to answer your questions and requests",
+    "tabContact": "Quick Message",
+    "tabQuote": "Request Consultation & Calibration",
+    "form": {
+      "name": "Full Name",
+      "company": "Company / Organization",
+      "email": "Email",
+      "phone": "Phone Number",
+      "serviceInterest": "Service of Interest",
+      "message": "Your Message",
+      "attachment": "Attachment (optional)",
+      "attachmentHint": "Allowed formats: PDF, JPG, PNG — max 10MB",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "success": "Your message was sent successfully. We'll be in touch soon.",
+      "error": "Something went wrong. Please try again."
+    },
+    "info": {
+      "address": "Address",
+      "phones": "Phone",
+      "email": "Email",
+      "hours": "Working Hours",
+      "whatsapp": "WhatsApp"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "error": "Invalid email or password."
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "services": "Services",
+      "blog": "Blog",
+      "certificates": "Certificates",
+      "logos": "Client Logos",
+      "submissions": "Messages & Requests",
+      "logout": "Logout"
+    }
+  }
+}
