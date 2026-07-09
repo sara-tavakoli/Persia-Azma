@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { navLinks, siteConfig } from "@/lib/site-config";
@@ -9,16 +10,19 @@ import { MessageCircle } from "lucide-react";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
-  const tMeta = useTranslations("meta");
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-heading font-semibold">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            PA
-          </span>
-          <span className="hidden text-base sm:inline">{tMeta("siteName")}</span>
+        <Link href="/" className="flex shrink-0 items-center">
+          <Image
+            src="/brand/logo-alt.png"
+            alt="Persia Azma System"
+            width={548}
+            height={195}
+            priority
+            className="h-8 w-auto sm:h-9"
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

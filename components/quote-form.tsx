@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocale, useTranslations } from "next-intl";
@@ -29,6 +29,7 @@ export function QuoteForm({
 }) {
   const t = useTranslations("contact.form");
   const locale = useLocale() as "fa" | "en";
+  const [fileList, setFileList] = useState<FileList | null>(null);
 
   const {
     register,
@@ -49,14 +50,14 @@ export function QuoteForm({
     },
   });
 
-  async function onSubmit(data: QuoteRequestInput, files: FileList | null) {
+  async function onSubmit(data: QuoteRequestInput) {
     try {
       const formData = new FormData();
       Object.entries({ ...data, locale }).forEach(([key, value]) => {
         formData.append(key, value ?? "");
       });
-      if (files) {
-        Array.from(files).forEach((file) =>
+      if (fileList) {
+        Array.from(fileList).forEach((file) =>
           formData.append("attachments", file)
         );
       }
@@ -81,11 +82,9 @@ export function QuoteForm({
     }
   }
 
-  const fileListRef = useRef<FileList | null>(null);
-
   return (
     <form
-      onSubmit={handleSubmit((data) => onSubmit(data, fileListRef.current))}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
       <div className="grid gap-4 sm:grid-cols-2">
@@ -156,9 +155,7 @@ export function QuoteForm({
           type="file"
           accept="application/pdf,image/jpeg,image/png"
           multiple
-          onChange={(e) => {
-            fileListRef.current = e.target.files;
-          }}
+          onChange={(e) => setFileList(e.target.files)}
         />
         <p className="text-xs text-muted-foreground">{t("attachmentHint")}</p>
       </div>

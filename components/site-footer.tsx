@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { navLinks, siteConfig } from "@/lib/site-config";
@@ -13,12 +14,13 @@ export function SiteFooter() {
     <footer className="border-t border-border bg-muted/40">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-2 font-heading font-semibold">
-            <span className="flex size-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              PA
-            </span>
-            <span>{tMeta("siteName")}</span>
-          </div>
+          <Image
+            src="/brand/logo-alt.png"
+            alt="Persia Azma System"
+            width={548}
+            height={195}
+            className="h-9 w-auto"
+          />
           <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
             {t("description")}
           </p>

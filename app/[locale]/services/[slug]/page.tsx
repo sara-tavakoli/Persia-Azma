@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Link } from "@/i18n/navigation";
-import { PageHero } from "@/components/page-hero";
 import { ServiceIcon } from "@/components/service-icon";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -15,6 +14,8 @@ import { categoryColorClasses } from "@/lib/category-colors";
 import { FadeIn } from "@/components/fade-in";
 import { alternatesForSlugs } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
+import { categoryImages } from "@/lib/category-images";
+import Image from "next/image";
 
 export async function generateStaticParams() {
   const services = await getServices();
@@ -111,6 +112,18 @@ export default async function ServiceDetailPage({
           </p>
         </FadeIn>
       </section>
+
+      <div className="mx-auto max-w-3xl px-4 pt-12 sm:px-6">
+        <div className="relative aspect-21/9 overflow-hidden rounded-3xl shadow-lg ring-1 ring-black/5">
+          <Image
+            src={categoryImages[service.category]}
+            alt=""
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
 
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-heading prose-a:text-primary">

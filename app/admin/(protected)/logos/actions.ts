@@ -28,7 +28,7 @@ export async function saveClientLogo(formData: FormData) {
   }
 
   const id = randomUUID();
-  const bucket = getAdminStorage().bucket();
+  const bucket = (await getAdminStorage()).bucket();
   const safeName = file.name.replace(/[^\w.\-]/g, "_");
   const storagePath = `logos/${id}/${safeName}`;
   const buffer = Buffer.from(await file.arrayBuffer());

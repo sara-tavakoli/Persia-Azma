@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   }
 
   const requestId = randomUUID();
-  const bucket = getAdminStorage().bucket();
+  const bucket = (await getAdminStorage()).bucket();
 
   const attachments: StoredFile[] = await Promise.all(
     files.map(async (file) => {

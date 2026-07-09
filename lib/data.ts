@@ -13,6 +13,16 @@ export type CertificateWithId = CertificateDoc & { id: string };
 export type BlogPostWithId = BlogPostDoc & { id: string };
 export type FaqItemWithId = FaqItemDoc & { id: string };
 
+// decodeURIComponent throws on a lone `%` not part of a valid escape
+// sequence; fall back to the original string rather than crash.
+function safeDecodeURIComponent(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export const getServices = unstable_cache(
   async (): Promise<ServiceWithId[]> => {
     const snap = await adminDb
@@ -26,21 +36,30 @@ export const getServices = unstable_cache(
   { tags: ["services"], revalidate: 3600 }
 );
 
-export const getServiceBySlug = unstable_cache(
-  async (locale: "fa" | "en", slug: string): Promise<ServiceWithId | null> => {
-    const snap = await adminDb
-      .collection("services")
-      .where(`slug.${locale}`, "==", slug)
-      .where("isPublished", "==", true)
-      .limit(1)
-      .get();
-    if (snap.empty) return null;
-    const doc = snap.docs[0];
-    return { id: doc.id, ...(doc.data() as ServiceDoc) };
-  },
-  ["service-by-slug"],
-  { tags: ["services"], revalidate: 3600 }
-);
+// Not wrapped in unstable_cache: these pages are already statically
+// generated (generateStaticParams) with page-level ISR, so the extra
+// caching layer was redundant — and unstable_cache's automatic
+// argument-based cache keying proved unreliable here (served a stale
+// "not found" result across different slug/locale calls).
+export async function getServiceBySlug(
+  locale: "fa" | "en",
+  rawSlug: string
+): Promise<ServiceWithId | null> {
+  // Next.js 16 has been observed passing non-ASCII dynamic segments to
+  // generateMetadata still percent-encoded (while the page component
+  // gets the decoded value) — decode defensively; decodeURIComponent
+  // is a no-op on already-decoded text with no `%` sequences.
+  const slug = safeDecodeURIComponent(rawSlug);
+  const snap = await adminDb
+    .collection("services")
+    .where(`slug.${locale}`, "==", slug)
+    .where("isPublished", "==", true)
+    .limit(1)
+    .get();
+  if (snap.empty) return null;
+  const doc = snap.docs[0];
+  return { id: doc.id, ...(doc.data() as ServiceDoc) };
+}
 
 export const getCertificates = unstable_cache(
   async (): Promise<CertificateWithId[]> => {
@@ -55,35 +74,36 @@ export const getCertificates = unstable_cache(
   { tags: ["certificates"], revalidate: 86400 }
 );
 
-export const getBlogPosts = unstable_cache(
-  async (locale: "fa" | "en"): Promise<BlogPostWithId[]> => {
-    const snap = await adminDb
-      .collection("blogPosts")
-      .where("isPublished", "==", true)
-      .where("locales", "array-contains", locale)
-      .orderBy("publishedAt", "desc")
-      .get();
-    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as BlogPostDoc) }));
-  },
-  ["blog-posts"],
-  { tags: ["blogPosts"], revalidate: 3600 }
-);
+// Not wrapped in unstable_cache — see note above getServiceBySlug;
+// this also takes a `locale` argument so was at risk of the same bug.
+export async function getBlogPosts(
+  locale: "fa" | "en"
+): Promise<BlogPostWithId[]> {
+  const snap = await adminDb
+    .collection("blogPosts")
+    .where("isPublished", "==", true)
+    .where("locales", "array-contains", locale)
+    .orderBy("publishedAt", "desc")
+    .get();
+  return snap.docs.map((d) => ({ id: d.id, ...(d.data() as BlogPostDoc) }));
+}
 
-export const getBlogPostBySlug = unstable_cache(
-  async (locale: "fa" | "en", slug: string): Promise<BlogPostWithId | null> => {
-    const snap = await adminDb
-      .collection("blogPosts")
-      .where(`slug.${locale}`, "==", slug)
-      .where("isPublished", "==", true)
-      .limit(1)
-      .get();
-    if (snap.empty) return null;
-    const doc = snap.docs[0];
-    return { id: doc.id, ...(doc.data() as BlogPostDoc) };
-  },
-  ["blog-post-by-slug"],
-  { tags: ["blogPosts"], revalidate: 3600 }
-);
+// See note above getServiceBySlug — same reasoning applies here.
+export async function getBlogPostBySlug(
+  locale: "fa" | "en",
+  rawSlug: string
+): Promise<BlogPostWithId | null> {
+  const slug = safeDecodeURIComponent(rawSlug);
+  const snap = await adminDb
+    .collection("blogPosts")
+    .where(`slug.${locale}`, "==", slug)
+    .where("isPublished", "==", true)
+    .limit(1)
+    .get();
+  if (snap.empty) return null;
+  const doc = snap.docs[0];
+  return { id: doc.id, ...(doc.data() as BlogPostDoc) };
+}
 
 export const getFaqs = unstable_cache(
   async (): Promise<FaqItemWithId[]> => {

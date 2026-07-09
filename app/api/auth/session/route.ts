@@ -31,8 +31,9 @@ export async function DELETE() {
 
   if (sessionCookie) {
     try {
-      const decoded = await getAdminAuth().verifySessionCookie(sessionCookie);
-      await getAdminAuth().revokeRefreshTokens(decoded.uid);
+      const auth = await getAdminAuth();
+      const decoded = await auth.verifySessionCookie(sessionCookie);
+      await auth.revokeRefreshTokens(decoded.uid);
     } catch {
       // session already invalid — nothing to revoke
     }

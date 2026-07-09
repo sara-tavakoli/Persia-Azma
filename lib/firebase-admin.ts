@@ -25,17 +25,19 @@ export const adminDb = getFirestore(adminApp);
 // every dynamic route, even ones that never touch auth). Load lazily so
 // only routes that actually call these functions pay for/risk that import.
 let _adminAuth: import("firebase-admin/auth").Auth | undefined;
-export function getAdminAuth() {
+export async function getAdminAuth() {
   if (!_adminAuth) {
-    _adminAuth = require("firebase-admin/auth").getAuth(adminApp);
+    const { getAuth } = await import("firebase-admin/auth");
+    _adminAuth = getAuth(adminApp);
   }
-  return _adminAuth!;
+  return _adminAuth;
 }
 
 let _adminStorage: import("firebase-admin/storage").Storage | undefined;
-export function getAdminStorage() {
+export async function getAdminStorage() {
   if (!_adminStorage) {
-    _adminStorage = require("firebase-admin/storage").getStorage(adminApp);
+    const { getStorage } = await import("firebase-admin/storage");
+    _adminStorage = getStorage(adminApp);
   }
-  return _adminStorage!;
+  return _adminStorage;
 }

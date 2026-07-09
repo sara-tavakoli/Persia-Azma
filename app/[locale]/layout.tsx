@@ -37,6 +37,7 @@ export async function generateMetadata({
       siteName: t("siteName"),
       locale: locale === "fa" ? "fa_IR" : "en_US",
       type: "website",
+      images: [{ url: "/brand/logo-alt.png", width: 548, height: 195 }],
     },
   };
 }
@@ -63,6 +64,8 @@ export default async function LocaleLayout({
     name: siteConfig.name,
     alternateName: siteConfig.nameFa,
     url: siteConfig.url,
+    logo: `${siteConfig.url}/brand/logo-main.png`,
+    image: `${siteConfig.url}/brand/logo-alt.png`,
     email: siteConfig.email,
     telephone: siteConfig.phones,
     address: {
