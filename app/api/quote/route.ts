@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "node:crypto";
-import { adminDb, adminStorage } from "@/lib/firebase-admin";
+import { adminDb, getAdminStorage } from "@/lib/firebase-admin";
 import {
   quoteRequestSchema,
   ALLOWED_ATTACHMENT_TYPES,
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
   }
 
   const requestId = randomUUID();
-  const bucket = adminStorage.bucket();
+  const bucket = getAdminStorage().bucket();
 
   const attachments: StoredFile[] = await Promise.all(
     files.map(async (file) => {

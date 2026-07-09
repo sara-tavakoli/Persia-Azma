@@ -1,8 +1,6 @@
 import "server-only";
 import { cert, getApps, initializeApp, type App } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { getAuth } from "firebase-admin/auth";
-import { getStorage } from "firebase-admin/storage";
 
 function getAdminApp(): App {
   const existing = getApps();
@@ -20,5 +18,24 @@ function getAdminApp(): App {
 
 export const adminApp = getAdminApp();
 export const adminDb = getFirestore(adminApp);
-export const adminAuth = getAuth(adminApp);
-export const adminStorage = getStorage(adminApp);
+
+// auth/storage pull in extra dependency graphs (auth -> jwks-rsa -> jose,
+// which fails to bundle for serverless functions evaluated at request
+// time — see incident where importing `firebase-admin/auth` eagerly broke
+// every dynamic route, even ones that never touch auth). Load lazily so
+// only routes that actually call these functions pay for/risk that import.
+let _adminAuth: import("firebase-admin/auth").Auth | undefined;
+export function getAdminAuth() {
+  if (!_adminAuth) {
+    _adminAuth = require("firebase-admin/auth").getAuth(adminApp);
+  }
+  return _adminAuth!;
+}
+
+let _adminStorage: import("firebase-admin/storage").Storage | undefined;
+export function getAdminStorage() {
+  if (!_adminStorage) {
+    _adminStorage = require("firebase-admin/storage").getStorage(adminApp);
+  }
+  return _adminStorage!;
+}
