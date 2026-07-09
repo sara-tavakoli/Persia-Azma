@@ -89,8 +89,11 @@
   "about": {
     "title": "About Persia Azma System",
     "subtitle": "Your independent partner in precision and quality",
+    "introBody": "As an independent consultancy, Persia Azma System provides calibration and quality-control services for medical, imaging, industrial, and laboratory equipment with over 99.99% accuracy — for hospitals, clinics, and industry. We help our clients make informed decisions about purchasing and operating their equipment.",
     "missionTitle": "Our Mission",
-    "locationTitle": "Our Location"
+    "missionBody": "Our mission is to provide complete, focused solutions that ensure the safe, accurate, and cost-effective performance of medical and industrial equipment — through rigorous technical analysis, expert consulting, and operating-cost reduction, without ever compromising quality or safety.",
+    "locationTitle": "Our Location",
+    "locationBody": "Persia Azma System's headquarters is located at the Fars Science & Technology Park in Shiraz, and our technical team is ready to provide on-site services at hospitals, laboratories, and factories across the country."
   },
   "contact": {
     "title": "Contact Us",

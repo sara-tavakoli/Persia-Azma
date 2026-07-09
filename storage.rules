@@ -1,0 +1,15 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Public read for published content assets (services, blog, certificates, logos).
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+    // All writes happen server-side via the Firebase Admin SDK, which
+    // bypasses these rules entirely — never allow direct client writes.
+    match /{allPaths=**} {
+      allow write: if false;
+    }
+  }
+}

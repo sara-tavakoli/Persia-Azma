@@ -1,0 +1,43 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /services/{id} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if false;
+    }
+    match /blogPosts/{id} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if false;
+    }
+    match /certificates/{id} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if false;
+    }
+    match /clientLogos/{id} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if false;
+    }
+    match /faqs/{id} {
+      allow read: if resource.data.isPublished == true;
+      allow write: if false;
+    }
+    match /siteSettings/{id} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Submissions and admin records are never readable or writable
+    // directly from the client — all access goes through the
+    // Firebase Admin SDK in server-side Route Handlers.
+    match /contactSubmissions/{id} {
+      allow read, write: if false;
+    }
+    match /quoteRequests/{id} {
+      allow read, write: if false;
+    }
+    match /admins/{id} {
+      allow read, write: if false;
+    }
+  }
+}
