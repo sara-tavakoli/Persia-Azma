@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { clientAuth } from "@/lib/firebase-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,16 +19,10 @@ export default function AdminLoginPage() {
     setError(null);
     setLoading(true);
     try {
-      const credential = await signInWithEmailAndPassword(
-        clientAuth,
-        email,
-        password
-      );
-      const idToken = await credential.user.getIdToken();
       const res = await fetch("/api/auth/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken }),
+        body: JSON.stringify({ email, password }),
       });
       if (!res.ok) throw new Error("unauthorized");
       router.push("/admin");
