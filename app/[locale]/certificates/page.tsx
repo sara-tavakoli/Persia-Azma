@@ -4,9 +4,15 @@ import { PageHero } from "@/components/page-hero";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCertificates } from "@/lib/data";
 import { routing } from "@/i18n/routing";
-import { BadgeCheck } from "lucide-react";
+import { BadgeCheck, ShieldCheck, Stethoscope, Radiation, type LucideIcon } from "lucide-react";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { alternatesForPath } from "@/lib/seo";
+
+const certificateIcons: Record<string, LucideIcon> = {
+  "ISO 17025": ShieldCheck,
+  "Iran FDA": Stethoscope,
+  AEOI: Radiation,
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -43,19 +49,22 @@ export default async function CertificatesPage({
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <FadeInStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {certificates.map((cert) => (
-            <FadeInStaggerItem key={cert.id}>
-              <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
-                <CardHeader>
-                  <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-foreground ring-1 ring-brand-teal/25">
-                    <BadgeCheck className="size-5" />
-                  </div>
-                  <CardTitle>{cert.title[locale]}</CardTitle>
-                  <CardDescription>{cert.description[locale]}</CardDescription>
-                </CardHeader>
-              </Card>
-            </FadeInStaggerItem>
-          ))}
+          {certificates.map((cert) => {
+            const Icon = certificateIcons[cert.issuer] ?? BadgeCheck;
+            return (
+              <FadeInStaggerItem key={cert.id}>
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-foreground ring-1 ring-brand-teal/25 transition-transform group-hover/card:scale-110">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle>{cert.title[locale]}</CardTitle>
+                    <CardDescription>{cert.description[locale]}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </FadeInStaggerItem>
+            );
+          })}
         </FadeInStagger>
       </section>
     </>

@@ -92,58 +92,66 @@ export default async function AboutPage({
           </FadeIn>
         </div>
 
-        <div className="mt-16 grid gap-8 sm:grid-cols-2">
-          <FadeIn>
-            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Target className="size-5" />
+        <FadeInStagger className="mt-16 grid gap-6 sm:grid-cols-2">
+          <FadeInStaggerItem>
+            <div className="group h-full rounded-2xl border border-border/60 p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform group-hover:scale-110">
+                <Target className="size-5" />
+              </div>
+              <h2 className="font-heading text-xl font-semibold">
+                {t("missionTitle")}
+              </h2>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                {t("missionBody")}
+              </p>
             </div>
-            <h2 className="font-heading text-xl font-semibold">
-              {t("missionTitle")}
-            </h2>
-            <p className="mt-2 leading-7 text-muted-foreground">
-              {t("missionBody")}
-            </p>
-          </FadeIn>
+          </FadeInStaggerItem>
 
-          <FadeIn delay={0.05}>
-            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Eye className="size-5" />
+          <FadeInStaggerItem>
+            <div className="group h-full rounded-2xl border border-border/60 p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform group-hover:scale-110">
+                <Eye className="size-5" />
+              </div>
+              <h2 className="font-heading text-xl font-semibold">
+                {t("visionTitle")}
+              </h2>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                {t("visionBody")}
+              </p>
             </div>
-            <h2 className="font-heading text-xl font-semibold">
-              {t("visionTitle")}
-            </h2>
-            <p className="mt-2 leading-7 text-muted-foreground">
-              {t("visionBody")}
-            </p>
-          </FadeIn>
+          </FadeInStaggerItem>
 
-          <FadeIn delay={0.1}>
-            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground">
-              <Award className="size-5" />
+          <FadeInStaggerItem>
+            <div className="group h-full rounded-2xl border border-border/60 p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground transition-transform group-hover:scale-110">
+                <Award className="size-5" />
+              </div>
+              <h2 className="font-heading text-xl font-semibold">
+                {t("qmsTitle")}
+              </h2>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                {t("qmsBody")}
+              </p>
             </div>
-            <h2 className="font-heading text-xl font-semibold">
-              {t("qmsTitle")}
-            </h2>
-            <p className="mt-2 leading-7 text-muted-foreground">
-              {t("qmsBody")}
-            </p>
-          </FadeIn>
+          </FadeInStaggerItem>
 
-          <FadeIn delay={0.15}>
-            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground">
-              <MapPin className="size-5" />
+          <FadeInStaggerItem>
+            <div className="group h-full rounded-2xl border border-border/60 p-6 transition-all hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground transition-transform group-hover:scale-110">
+                <MapPin className="size-5" />
+              </div>
+              <h2 className="font-heading text-xl font-semibold">
+                {t("locationTitle")}
+              </h2>
+              <p className="mt-2 leading-7 text-muted-foreground">
+                {t("locationBody")}
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground" dir="ltr">
+                {siteConfig.addressEn}
+              </p>
             </div>
-            <h2 className="font-heading text-xl font-semibold">
-              {t("locationTitle")}
-            </h2>
-            <p className="mt-2 leading-7 text-muted-foreground">
-              {t("locationBody")}
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground" dir="ltr">
-              {siteConfig.addressEn}
-            </p>
-          </FadeIn>
-        </div>
+          </FadeInStaggerItem>
+        </FadeInStagger>
       </section>
 
       {/* Parameters we calibrate */}
@@ -163,8 +171,8 @@ export default async function AboutPage({
               const Icon = parameterIcons[i];
               return (
                 <FadeInStaggerItem key={label}>
-                  <div className="flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-background p-6 text-center shadow-sm">
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-background p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                    <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-110">
                       <Icon className="size-6" />
                     </div>
                     <span className="text-sm font-medium">{label}</span>
@@ -189,8 +197,8 @@ export default async function AboutPage({
             const Icon = capabilityIcons[i];
             return (
               <FadeInStaggerItem key={label}>
-                <div className="flex flex-col items-center gap-3 text-center">
-                  <div className="flex size-14 items-center justify-center rounded-2xl bg-brand-teal/15 text-brand-teal-foreground">
+                <div className="group flex flex-col items-center gap-3 text-center">
+                  <div className="flex size-14 items-center justify-center rounded-2xl bg-brand-teal/15 text-brand-teal-foreground transition-transform group-hover:scale-110">
                     <Icon className="size-6" />
                   </div>
                   <span className="text-sm font-medium">{label}</span>

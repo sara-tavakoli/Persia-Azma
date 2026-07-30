@@ -1,11 +1,14 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/data";
+import { getBlogCoverImage } from "@/lib/blog-images";
 import { alternatesForSlugs } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
+import { FadeIn } from "@/components/fade-in";
 
 export async function generateStaticParams() {
   const [faPosts, enPosts] = await Promise.all([
@@ -58,31 +61,47 @@ export default async function BlogPostPage({
     datePublished: new Date(post.publishedAt).toISOString(),
     dateModified: new Date(post.updatedAt).toISOString(),
     mainEntityOfPage: `${siteConfig.url}/${locale}/blog/${slug}`,
-    ...(post.coverImage ? { image: post.coverImage.url } : {}),
+    image: `${siteConfig.url}${getBlogCoverImage(post)}`,
   };
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <header className="mb-8 text-center">
-        <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-          {post.title[locale]}
-        </h1>
-        <p className="mt-3 text-sm text-muted-foreground">
-          {t("by")} {post.author} —{" "}
-          {new Date(post.publishedAt).toLocaleDateString(
-            locale === "fa" ? "fa-IR" : "en-US"
-          )}
-        </p>
-      </header>
-      <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-heading prose-a:text-primary">
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-          {post.body[locale]}
-        </ReactMarkdown>
-      </article>
-    </section>
+      <FadeIn className="relative h-[45vh] min-h-72 w-full overflow-hidden">
+        <Image
+          src={getBlogCoverImage(post)}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
+        <div className="absolute inset-0 flex flex-col justify-end">
+          <div className="mx-auto w-full max-w-3xl px-4 pb-10 text-white sm:px-6">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              {post.title[locale]}
+            </h1>
+            <p className="mt-3 text-sm text-white/80">
+              {t("by")} {post.author} —{" "}
+              {new Date(post.publishedAt).toLocaleDateString(
+                locale === "fa" ? "fa-IR" : "en-US"
+              )}
+            </p>
+          </div>
+        </div>
+      </FadeIn>
+
+      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-heading prose-a:text-primary">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {post.body[locale]}
+          </ReactMarkdown>
+        </article>
+      </section>
+    </>
   );
 }

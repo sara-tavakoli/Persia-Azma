@@ -16,6 +16,7 @@ import { homeStats } from "@/lib/placeholder-data";
 import { ServiceIcon } from "@/components/service-icon";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { getServiceImage } from "@/lib/service-images";
+import { getBlogCoverImage } from "@/lib/blog-images";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
 import {
@@ -397,9 +398,18 @@ export default async function HomePage({
           <FadeInStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {blogPosts.slice(0, 3).map((post) => (
               <FadeInStaggerItem key={post.id}>
-                <Link href={`/blog/${post.slug[locale]}`} className="block h-full">
-                  <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <CardHeader>
+                <Link href={`/blog/${post.slug[locale]}`} className="group block h-full">
+                  <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <div className="relative aspect-16/9 w-full overflow-hidden">
+                      <Image
+                        src={getBlogCoverImage(post)}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <CardHeader className="pt-4">
                       <CardTitle>{post.title[locale]}</CardTitle>
                       <CardDescription>{post.excerpt[locale]}</CardDescription>
                     </CardHeader>
