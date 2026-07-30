@@ -89,7 +89,7 @@ export default async function ServiceDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <section className="bg-mesh bg-noise relative overflow-hidden border-b border-border bg-background">
+      <section className="bg-noise relative overflow-hidden border-b border-border bg-muted/40">
         <FadeIn className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
           <div
             className={cn(

@@ -6,12 +6,14 @@ import type {
   CertificateDoc,
   BlogPostDoc,
   FaqItemDoc,
+  ClientLogoDoc,
 } from "@/lib/types";
 
 export type ServiceWithId = ServiceDoc & { id: string };
 export type CertificateWithId = CertificateDoc & { id: string };
 export type BlogPostWithId = BlogPostDoc & { id: string };
 export type FaqItemWithId = FaqItemDoc & { id: string };
+export type ClientLogoWithId = ClientLogoDoc & { id: string };
 
 // decodeURIComponent throws on a lone `%` not part of a valid escape
 // sequence; fall back to the original string rather than crash.
@@ -104,6 +106,19 @@ export async function getBlogPostBySlug(
   const doc = snap.docs[0];
   return { id: doc.id, ...(doc.data() as BlogPostDoc) };
 }
+
+export const getClientLogos = unstable_cache(
+  async (): Promise<ClientLogoWithId[]> => {
+    const snap = await adminDb
+      .collection("clientLogos")
+      .where("isPublished", "==", true)
+      .orderBy("order", "asc")
+      .get();
+    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as ClientLogoDoc) }));
+  },
+  ["clientLogos"],
+  { tags: ["clientLogos"], revalidate: 86400 }
+);
 
 export const getFaqs = unstable_cache(
   async (): Promise<FaqItemWithId[]> => {

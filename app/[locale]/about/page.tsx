@@ -8,6 +8,8 @@ import { routing } from "@/i18n/routing";
 import { alternatesForPath } from "@/lib/seo";
 import {
   Target,
+  Eye,
+  Award,
   MapPin,
   Thermometer,
   Droplets,
@@ -103,7 +105,31 @@ export default async function AboutPage({
             </p>
           </FadeIn>
 
+          <FadeIn delay={0.05}>
+            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <Eye className="size-5" />
+            </div>
+            <h2 className="font-heading text-xl font-semibold">
+              {t("visionTitle")}
+            </h2>
+            <p className="mt-2 leading-7 text-muted-foreground">
+              {t("visionBody")}
+            </p>
+          </FadeIn>
+
           <FadeIn delay={0.1}>
+            <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground">
+              <Award className="size-5" />
+            </div>
+            <h2 className="font-heading text-xl font-semibold">
+              {t("qmsTitle")}
+            </h2>
+            <p className="mt-2 leading-7 text-muted-foreground">
+              {t("qmsBody")}
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.15}>
             <div className="mb-3 flex size-11 items-center justify-center rounded-lg bg-brand-teal/15 text-brand-teal-foreground">
               <MapPin className="size-5" />
             </div>

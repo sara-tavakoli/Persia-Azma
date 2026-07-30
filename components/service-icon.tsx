@@ -5,6 +5,11 @@ import {
   LineChart,
   ShieldCheck,
   Wrench,
+  Activity,
+  GraduationCap,
+  Truck,
+  Wind,
+  Database,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,6 +20,11 @@ export const serviceIconMap: Record<string, LucideIcon> = {
   lineChart: LineChart,
   shieldCheck: ShieldCheck,
   wrench: Wrench,
+  activity: Activity,
+  graduationCap: GraduationCap,
+  truck: Truck,
+  wind: Wind,
+  database: Database,
 };
 
 export function ServiceIcon({

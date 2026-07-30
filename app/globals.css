@@ -23,6 +23,8 @@
   --color-cat-industrial-foreground: var(--cat-industrial-foreground);
   --color-cat-consulting: var(--cat-consulting);
   --color-cat-consulting-foreground: var(--cat-consulting-foreground);
+  --color-cat-environmental: var(--cat-environmental);
+  --color-cat-environmental-foreground: var(--cat-environmental-foreground);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -63,33 +65,35 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.22 0.01 255);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.22 0.01 255);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.4 0.15 255);
+  --popover-foreground: oklch(0.22 0.01 255);
+  --primary: oklch(0.32 0.09 258);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.96 0.015 255);
-  --secondary-foreground: oklch(0.28 0.08 255);
+  --secondary-foreground: oklch(0.28 0.06 258);
   --muted: oklch(0.97 0.005 255);
   --muted-foreground: oklch(0.5 0.02 255);
   --accent: oklch(0.95 0.03 255);
-  --accent-foreground: oklch(0.3 0.1 255);
+  --accent-foreground: oklch(0.3 0.08 258);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.9 0.01 255);
   --input: oklch(0.9 0.01 255);
-  --ring: oklch(0.4 0.15 255 / 0.5);
-  --brand-teal: oklch(0.7 0.11 195);
+  --ring: oklch(0.32 0.09 258 / 0.5);
+  --brand-teal: oklch(0.68 0.08 195);
   --brand-teal-foreground: oklch(0.2 0.04 195);
-  --cat-medical: oklch(0.55 0.18 258);
+  --cat-medical: oklch(0.4 0.11 258);
   --cat-medical-foreground: oklch(0.98 0.01 258);
-  --cat-imaging: oklch(0.55 0.19 305);
-  --cat-imaging-foreground: oklch(0.98 0.01 305);
-  --cat-industrial: oklch(0.62 0.13 195);
-  --cat-industrial-foreground: oklch(0.98 0.01 195);
-  --cat-consulting: oklch(0.48 0.15 55);
-  --cat-consulting-foreground: oklch(0.98 0.02 55);
+  --cat-imaging: oklch(0.5 0.09 258);
+  --cat-imaging-foreground: oklch(0.98 0.01 258);
+  --cat-industrial: oklch(0.55 0.05 250);
+  --cat-industrial-foreground: oklch(0.98 0.01 250);
+  --cat-consulting: oklch(0.6 0.05 262);
+  --cat-consulting-foreground: oklch(0.98 0.01 262);
+  --cat-environmental: oklch(0.58 0.08 205);
+  --cat-environmental-foreground: oklch(0.98 0.01 205);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -113,8 +117,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.72 0.13 255);
-  --primary-foreground: oklch(0.15 0.03 255);
+  --primary: oklch(0.7 0.08 258);
+  --primary-foreground: oklch(0.15 0.03 258);
   --secondary: oklch(0.269 0.02 255);
   --secondary-foreground: oklch(0.9 0.02 255);
   --muted: oklch(0.269 0.01 255);
@@ -124,17 +128,19 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.72 0.13 255 / 0.5);
-  --brand-teal: oklch(0.65 0.1 195);
+  --ring: oklch(0.7 0.08 258 / 0.5);
+  --brand-teal: oklch(0.62 0.07 195);
   --brand-teal-foreground: oklch(0.95 0.02 195);
-  --cat-medical: oklch(0.68 0.16 258);
+  --cat-medical: oklch(0.62 0.1 258);
   --cat-medical-foreground: oklch(0.15 0.03 258);
-  --cat-imaging: oklch(0.68 0.17 305);
-  --cat-imaging-foreground: oklch(0.15 0.03 305);
-  --cat-industrial: oklch(0.7 0.11 195);
-  --cat-industrial-foreground: oklch(0.15 0.03 195);
-  --cat-consulting: oklch(0.75 0.15 55);
-  --cat-consulting-foreground: oklch(0.15 0.03 55);
+  --cat-imaging: oklch(0.68 0.08 258);
+  --cat-imaging-foreground: oklch(0.15 0.03 258);
+  --cat-industrial: oklch(0.72 0.05 250);
+  --cat-industrial-foreground: oklch(0.15 0.03 250);
+  --cat-consulting: oklch(0.75 0.05 262);
+  --cat-consulting-foreground: oklch(0.15 0.03 262);
+  --cat-environmental: oklch(0.7 0.08 205);
+  --cat-environmental-foreground: oklch(0.15 0.03 205);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -183,7 +189,30 @@
     z-index: 1;
   }
 
-  /* Colorful blurred gradient-mesh backdrop, used behind hero content. */
+  /* Navy scrim over a background photo, used behind hero content. */
+  .bg-hero-scrim {
+    position: relative;
+    isolation: isolate;
+  }
+  .bg-hero-scrim::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--primary) 88%, black 12%) 0%,
+      color-mix(in oklch, var(--primary) 80%, black 4%) 55%,
+      color-mix(in oklch, var(--primary) 92%, black 15%) 100%
+    );
+  }
+  .bg-hero-scrim > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Colorful blurred gradient-mesh backdrop (legacy, no longer used by hero sections). */
   .bg-mesh {
     position: relative;
     isolation: isolate;

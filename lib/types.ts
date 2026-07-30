@@ -8,7 +8,12 @@ export type StoredFile = {
   mimeType?: string;
 };
 
-export type ServiceCategory = "medical" | "imaging" | "industrial" | "consulting";
+export type ServiceCategory =
+  | "medical"
+  | "imaging"
+  | "industrial"
+  | "consulting"
+  | "environmental";
 
 export type ServiceDoc = {
   slug: LocalizedText;

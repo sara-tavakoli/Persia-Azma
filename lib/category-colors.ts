@@ -24,4 +24,9 @@ export const categoryColorClasses: Record<
     text: "text-cat-consulting",
     ring: "ring-cat-consulting/25",
   },
+  environmental: {
+    bg: "bg-cat-environmental/12",
+    text: "text-cat-environmental",
+    ring: "ring-cat-environmental/20",
+  },
 };

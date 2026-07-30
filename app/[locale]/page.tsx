@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { getServices, getCertificates } from "@/lib/data";
+import { getServices, getCertificates, getClientLogos, getBlogPosts } from "@/lib/data";
 import { homeStats } from "@/lib/placeholder-data";
 import { ServiceIcon } from "@/components/service-icon";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { getServiceImage } from "@/lib/service-images";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
+import { Counter } from "@/components/counter";
 import {
   ArrowLeft,
   ArrowRight,
@@ -29,10 +30,19 @@ import {
   SearchCheck,
   Gauge,
   FileCheck2,
+  Flame,
+  Factory,
+  Anvil,
+  Zap,
+  Anchor,
+  Droplets,
+  Pill,
+  Building2,
 } from "lucide-react";
 
 const whyUsIcons = [ShieldCheck, Award, MapPinned, UserCheck];
 const processIcons = [ClipboardList, SearchCheck, Gauge, FileCheck2];
+const industryIcons = [Flame, Factory, Anvil, Zap, Anchor, Droplets, Pill, Building2];
 
 export default async function HomePage({
   params,
@@ -47,9 +57,11 @@ export default async function HomePage({
   const tCommon = await getTranslations("common");
   const ArrowIcon = locale === "fa" ? ArrowLeft : ArrowRight;
 
-  const [services, certificates] = await Promise.all([
+  const [services, certificates, clientLogos, blogPosts] = await Promise.all([
     getServices(),
     getCertificates(),
+    getClientLogos(),
+    getBlogPosts(locale),
   ]);
 
   const whyUs = [1, 2, 3, 4].map((i) => ({
@@ -64,74 +76,65 @@ export default async function HomePage({
     Icon: processIcons[i - 1],
   }));
 
+  const industries = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => ({
+    label: t(`industry${i}` as "industry1"),
+    Icon: industryIcons[i - 1],
+  }));
+
   return (
     <>
       {/* Hero */}
-      <section className="bg-mesh bg-noise relative overflow-hidden border-b border-border bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <FadeIn>
-              <Badge
-                variant="secondary"
-                className="mb-4 border border-primary/15 bg-primary/10 text-primary"
+      <section className="bg-hero-scrim relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/hero-lab.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+        <div className="relative mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32">
+          <FadeIn>
+            <Badge
+              variant="secondary"
+              className="mb-4 border border-white/20 bg-white/10 text-white backdrop-blur-sm"
+            >
+              {t("hero.eyebrow")}
+            </Badge>
+            <h1 className="font-heading text-4xl font-bold tracking-tight text-balance text-white sm:text-5xl">
+              {t("hero.title")}
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-balance text-white/85">
+              {t("hero.subtitle")}
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href="/contact"
+                className={cn(buttonVariants({ size: "lg", variant: "secondary" }), "gap-2 shadow-lg")}
               >
-                {t("hero.eyebrow")}
-              </Badge>
-              <h1 className="font-heading text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-                <span className="bg-gradient-to-br from-primary via-primary to-cat-imaging bg-clip-text text-transparent">
-                  {t("hero.title")}
-                </span>
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-muted-foreground text-balance">
-                {t("hero.subtitle")}
-              </p>
-              <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row">
-                <Link
-                  href="/contact"
-                  className={cn(buttonVariants({ size: "lg" }), "gap-2 shadow-lg shadow-primary/20")}
-                >
-                  {t("hero.ctaPrimary")}
-                  <ArrowIcon className="size-4" />
-                </Link>
-                <Link
-                  href="/services"
-                  className={cn(buttonVariants({ variant: "outline", size: "lg" }), "bg-background/80 backdrop-blur-sm")}
-                >
-                  {t("hero.ctaSecondary")}
-                </Link>
-              </div>
-            </FadeIn>
+                {t("hero.ctaPrimary")}
+                <ArrowIcon className="size-4" />
+              </Link>
+              <Link
+                href="/services"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "border-white/30 bg-white/5 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
+                )}
+              >
+                {t("hero.ctaSecondary")}
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
-            <FadeIn delay={0.1} className="relative">
-              <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5">
-                <Image
-                  src="/images/hero-lab.jpg"
-                  alt=""
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 560px, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-              </div>
-              <div className="absolute -bottom-6 start-6 flex items-center gap-3 rounded-2xl border border-border/60 bg-background/90 px-5 py-4 shadow-xl backdrop-blur-sm">
-                <div className="flex size-11 items-center justify-center rounded-xl bg-cat-medical/12 text-cat-medical ring-1 ring-cat-medical/20">
-                  <BadgeCheck className="size-5" />
-                </div>
-                <div>
-                  <div className="font-heading text-xl font-bold text-cat-medical">
-                    {locale === "fa" ? homeStats[0].value : homeStats[0].valueEn}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {t("stats.accuracy")}
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-
-          {/* Stats */}
-          <FadeInStagger className="mt-20 grid grid-cols-2 gap-4 sm:grid-cols-4">
+      {/* Stats */}
+      <section className="border-b border-border bg-background">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <FadeInStagger className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {homeStats.map((stat, i) => {
               const palette = [
                 categoryColorClasses.medical,
@@ -143,13 +146,18 @@ export default async function HomePage({
                 <FadeInStaggerItem key={stat.key}>
                   <div
                     className={cn(
-                      "rounded-2xl border border-border/60 bg-background/70 p-5 text-center shadow-sm backdrop-blur-sm ring-1",
+                      "rounded-2xl border border-border/60 bg-card p-5 text-center shadow-sm ring-1",
                       palette.ring
                     )}
                   >
-                    <div className={cn("font-heading text-3xl font-bold", palette.text)}>
-                      {locale === "fa" ? stat.value : stat.valueEn}
-                    </div>
+                    <Counter
+                      value={stat.value}
+                      decimals={stat.decimals}
+                      locale={locale}
+                      prefix={locale === "fa" ? stat.symbolFa : ""}
+                      suffix={locale === "en" ? stat.symbolEn : ""}
+                      className={cn("font-heading text-3xl font-bold", palette.text)}
+                    />
                     <div className="mt-1 text-sm text-muted-foreground">
                       {t(`stats.${stat.key}` as "stats.accuracy")}
                     </div>
@@ -286,6 +294,29 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* Industries we serve */}
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <FadeIn className="mx-auto max-w-2xl text-center">
+          <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+            {t("industriesTitle")}
+          </h2>
+          <p className="mt-3 text-muted-foreground">{t("industriesSubtitle")}</p>
+        </FadeIn>
+
+        <FadeInStagger className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4">
+          {industries.map(({ label, Icon }) => (
+            <FadeInStaggerItem key={label}>
+              <div className="flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-card p-6 text-center shadow-sm">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Icon className="size-6" />
+                </div>
+                <span className="text-sm font-medium">{label}</span>
+              </div>
+            </FadeInStaggerItem>
+          ))}
+        </FadeInStagger>
+      </section>
+
       {/* Certificates */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <FadeIn className="mx-auto max-w-2xl text-center">
@@ -323,10 +354,73 @@ export default async function HomePage({
         </div>
       </section>
 
+      {/* Client / partner logos */}
+      {clientLogos.length > 0 && (
+        <section className="border-y border-border bg-muted/40">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+            <FadeIn className="mx-auto max-w-2xl text-center">
+              <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+                {t("partnersTitle")}
+              </h2>
+              <p className="mt-3 text-muted-foreground">{t("partnersSubtitle")}</p>
+            </FadeIn>
+
+            <FadeInStagger className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+              {clientLogos.map((logo) => (
+                <FadeInStaggerItem key={logo.id}>
+                  <div className="relative h-12 w-32 grayscale transition-all hover:grayscale-0">
+                    <Image
+                      src={logo.logo.url}
+                      alt={logo.name}
+                      fill
+                      sizes="128px"
+                      className="object-contain"
+                    />
+                  </div>
+                </FadeInStaggerItem>
+              ))}
+            </FadeInStagger>
+          </div>
+        </section>
+      )}
+
+      {/* Blog teaser */}
+      {blogPosts.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <FadeIn className="mx-auto max-w-2xl text-center">
+            <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+              {t("blogTitle")}
+            </h2>
+            <p className="mt-3 text-muted-foreground">{t("blogSubtitle")}</p>
+          </FadeIn>
+
+          <FadeInStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.slice(0, 3).map((post) => (
+              <FadeInStaggerItem key={post.id}>
+                <Link href={`/blog/${post.slug[locale]}`} className="block h-full">
+                  <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
+                    <CardHeader>
+                      <CardTitle>{post.title[locale]}</CardTitle>
+                      <CardDescription>{post.excerpt[locale]}</CardDescription>
+                    </CardHeader>
+                  </Card>
+                </Link>
+              </FadeInStaggerItem>
+            ))}
+          </FadeInStagger>
+
+          <div className="mt-10 text-center">
+            <Link href="/blog" className={cn(buttonVariants({ variant: "outline" }))}>
+              {tCommon("viewAll")}
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* CTA banner */}
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
         <FadeIn>
-          <div className="bg-noise relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-cat-imaging px-8 py-14 text-center text-primary-foreground shadow-xl sm:flex-row sm:text-start">
+          <div className="bg-noise relative flex flex-col items-center justify-between gap-6 overflow-hidden rounded-3xl bg-primary px-8 py-14 text-center text-primary-foreground shadow-xl sm:flex-row sm:text-start">
             <div>
               <h2 className="font-heading text-2xl font-bold sm:text-3xl">
                 {t("ctaBannerTitle")}

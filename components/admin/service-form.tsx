@@ -25,6 +25,7 @@ const categoryLabels: Record<string, string> = {
   imaging: "تجهیزات تصویربرداری",
   industrial: "تجهیزات صنعتی و آزمایشگاهی",
   consulting: "مشاوره و کاهش هزینه",
+  environmental: "اتاق تمیز و کیفیت هوا",
 };
 
 export function ServiceForm({ service }: { service?: ServiceWithId }) {

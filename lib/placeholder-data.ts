@@ -105,8 +105,8 @@ export const certificates: CertificateItem[] = [
 ];
 
 export const homeStats = [
-  { key: "accuracy", value: "٪۹۹.۹۹", valueEn: "99.99%" },
-  { key: "clients", value: "+۵۰۰", valueEn: "500+" },
-  { key: "years", value: "+۱۰", valueEn: "10+" },
-  { key: "services", value: "۸", valueEn: "8" },
+  { key: "accuracy", value: 99.99, decimals: 2, symbolFa: "٪", symbolEn: "%" },
+  { key: "clients", value: 500, decimals: 0, symbolFa: "+", symbolEn: "+" },
+  { key: "years", value: 10, decimals: 0, symbolFa: "+", symbolEn: "+" },
+  { key: "services", value: 8, decimals: 0, symbolFa: "", symbolEn: "" },
 ];
