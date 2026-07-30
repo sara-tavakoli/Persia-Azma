@@ -5,9 +5,11 @@ export const serviceImages: Record<string, string> = {
   "medical-equipment-quality-control": "/images/medical-equipment.jpg",
   "imaging-equipment-quality-control": "/images/imaging-hospital.jpg",
   "industrial-equipment-calibration": "/images/industrial-gauge2.jpg",
-  "equipment-performance-analysis": "/images/team-labcoats.jpg",
-  "cost-reduction-consulting": "/images/consulting-meeting.jpg",
-  "troubleshooting-consultation": "/images/troubleshooting-discussion.jpg",
+  "physiotherapy-rehab-equipment-quality-control": "/images/physiotherapy-treatment.jpg",
+  "staff-training-courses": "/images/training-workshop.jpg",
+  "on-site-field-calibration": "/images/field-technician.jpg",
+  "cleanroom-certification-iaq-monitoring": "/images/cleanroom-technicians.jpg",
+  "calibration-management-system": "/images/calibration-management.jpg",
 };
 
 const fallback = "/images/hero-lab.jpg";

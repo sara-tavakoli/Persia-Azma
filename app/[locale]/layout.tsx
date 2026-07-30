@@ -8,6 +8,7 @@ import { siteConfig } from "@/lib/site-config";
 import { alternatesForPath } from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import { Toaster } from "@/components/ui/sonner";
 import "../globals.css";
 
@@ -108,6 +109,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <NextIntlClientProvider>
+          <AnnouncementBar />
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />

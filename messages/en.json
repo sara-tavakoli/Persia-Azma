@@ -4,6 +4,11 @@
     "defaultTitle": "Persia Azma System | Calibration & Quality Control for Medical, Imaging & Industrial Equipment",
     "defaultDescription": "Persia Azma System provides calibration and quality-control services for medical, imaging, industrial, and laboratory equipment in Shiraz, Iran, with over 99.99% measurement accuracy."
   },
+  "announcement": {
+    "badge": "Officially accredited:",
+    "text": "Persia Azma System holds ISO/IEC 17025 accreditation for the competence of testing and calibration laboratories.",
+    "cta": "Read more"
+  },
   "nav": {
     "home": "Home",
     "about": "About Us",
