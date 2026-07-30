@@ -49,7 +49,7 @@ export default async function ServicesPage({
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <FadeInStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
+          {services.map((service, index) => {
             const palette = categoryColorClasses[service.category];
             return (
               <FadeInStaggerItem key={service.id}>
@@ -60,6 +60,7 @@ export default async function ServicesPage({
                         src={getServiceImage(service.id)}
                         alt=""
                         fill
+                        priority={index === 0}
                         sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />

@@ -55,7 +55,7 @@ export default async function BlogPage({
             {posts.map((post) => (
               <FadeInStaggerItem key={post.id}>
                 <Link href={`/blog/${post.slug[locale]}`} className="group block h-full">
-                  <Card className="h-full overflow-hidden py-0 transition-shadow hover:shadow-md">
+                  <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
                     <div className="relative aspect-16/9 w-full overflow-hidden">
                       <Image
                         src={getBlogCoverImage(post)}

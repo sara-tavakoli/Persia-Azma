@@ -180,7 +180,7 @@ export default async function HomePage({
         </FadeIn>
 
         <FadeInStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
+          {services.map((service, index) => {
             const palette = categoryColorClasses[service.category];
             return (
               <FadeInStaggerItem key={service.id}>
@@ -191,6 +191,7 @@ export default async function HomePage({
                         src={getServiceImage(service.id)}
                         alt=""
                         fill
+                        priority={index === 0}
                         sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                       />
@@ -236,9 +237,12 @@ export default async function HomePage({
 
         <FadeInStagger className="relative mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {process.map(({ title, body, Icon }, i) => (
-            <FadeInStaggerItem key={title} className="relative">
+            <FadeInStaggerItem
+              key={title}
+              className="group relative rounded-2xl p-4 transition-colors hover:bg-muted/60"
+            >
               <div className="flex items-center gap-3">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:scale-110">
                   <Icon className="size-5" />
                 </div>
                 <span className="font-heading text-2xl font-bold text-muted-foreground/40">
@@ -279,8 +283,8 @@ export default async function HomePage({
               </FadeIn>
               <FadeInStagger className="mt-8 grid gap-6 sm:grid-cols-2">
                 {whyUs.map(({ title, body, Icon }) => (
-                  <FadeInStaggerItem key={title}>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <FadeInStaggerItem key={title} className="group">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-transform group-hover:scale-110">
                       <Icon className="size-5" />
                     </div>
                     <h3 className="mt-3 font-heading font-semibold">{title}</h3>
@@ -307,8 +311,8 @@ export default async function HomePage({
         <FadeInStagger className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-4">
           {industries.map(({ label, Icon }) => (
             <FadeInStaggerItem key={label}>
-              <div className="flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-card p-6 text-center shadow-sm">
-                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-card p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-110">
                   <Icon className="size-6" />
                 </div>
                 <span className="text-sm font-medium">{label}</span>

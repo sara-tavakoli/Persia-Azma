@@ -96,7 +96,7 @@ export default async function BlogPostPage({
       </FadeIn>
 
       <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <article className="prose prose-neutral dark:prose-invert max-w-none prose-headings:font-heading prose-a:text-primary">
+        <article className="prose prose-neutral dark:prose-invert max-w-none marker:text-primary prose-headings:font-heading prose-headings:text-foreground prose-a:font-medium prose-a:text-primary prose-strong:text-foreground prose-blockquote:border-primary prose-blockquote:not-italic prose-hr:border-border">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {post.body[locale]}
           </ReactMarkdown>
