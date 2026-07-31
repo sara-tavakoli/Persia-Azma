@@ -12,17 +12,10 @@ import { ExpertiseGrid } from "@/components/expertise-grid";
 const capabilityIcons = [Building2, FlaskConical, Factory, Scan];
 
 const galleryImages = [
-  "ventilator-monitor-check",
-  "defibrillator-calibration",
-  "infusion-pump-calibration",
+  "patient-monitor-calibration",
   "syringe-pump-calibration",
-  "multimeter-calibration",
-  "precision-balance-calibration",
+  "autoclave-validation",
   "ph-meter-calibration",
-  "spectrophotometer-calibration",
-  "centrifuge-calibration",
-  "xray-equipment-qc",
-  "ultrasound-qc",
 ];
 
 export function generateStaticParams() {
@@ -75,7 +68,7 @@ export default async function AboutPage({
           <FadeIn delay={0.1} className="relative">
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
               <Image
-                src="/images/work/pipette-calibration.jpg"
+                src="/images/work/precision-balance-calibration.jpg"
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 560px, 100vw"
@@ -197,7 +190,6 @@ export default async function AboutPage({
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
               {t("galleryTitle")}
             </h2>
-            <p className="mt-3 text-muted-foreground">{t("gallerySubtitle")}</p>
           </FadeIn>
 
           <FadeInStagger className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
