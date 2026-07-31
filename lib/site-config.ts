@@ -20,4 +20,5 @@ export const navLinks = [
   { key: "certificates", href: "/certificates" },
   { key: "blog", href: "/blog" },
   { key: "faq", href: "/faq" },
+  { key: "contact", href: "/contact" },
 ] as const;

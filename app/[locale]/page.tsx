@@ -17,6 +17,7 @@ import { ServiceIcon } from "@/components/service-icon";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { getServiceImage } from "@/lib/service-images";
 import { getBlogCoverImage } from "@/lib/blog-images";
+import { calibrationQuantities } from "@/lib/quantity-icons";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
 import {
@@ -56,6 +57,7 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const tServices = await getTranslations("services");
   const tCommon = await getTranslations("common");
+  const tQuantities = await getTranslations("quantities");
   const ArrowIcon = locale === "fa" ? ArrowLeft : ArrowRight;
 
   const [services, certificates, clientLogos, blogPosts] = await Promise.all([
@@ -224,6 +226,33 @@ export default async function HomePage({
             );
           })}
         </FadeInStagger>
+      </section>
+
+      {/* Expertise / calibration quantities */}
+      <section className="border-y border-border bg-muted/40">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+          <FadeIn className="mx-auto max-w-2xl text-center">
+            <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+              {t("expertiseTitle")}
+            </h2>
+            <p className="mt-3 text-muted-foreground">{t("expertiseSubtitle")}</p>
+          </FadeIn>
+
+          <FadeInStagger className="mt-12 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-5">
+            {calibrationQuantities.map(({ key, Icon }) => (
+              <FadeInStaggerItem key={key}>
+                <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-card p-5 text-center transition-all hover:-translate-y-1 hover:shadow-md">
+                  <div className="flex size-11 items-center justify-center rounded-full ring-2 ring-primary/20 text-primary transition-transform group-hover:scale-110">
+                    <Icon className="size-5" />
+                  </div>
+                  <span className="text-sm font-medium">
+                    {tQuantities(key as "pressure")}
+                  </span>
+                </div>
+              </FadeInStaggerItem>
+            ))}
+          </FadeInStagger>
+        </div>
       </section>
 
       {/* How It Works */}

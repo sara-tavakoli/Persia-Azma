@@ -6,23 +6,9 @@ import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { alternatesForPath } from "@/lib/seo";
-import {
-  Target,
-  Eye,
-  Award,
-  MapPin,
-  Thermometer,
-  Droplets,
-  Beaker,
-  Weight,
-  Wind,
-  Building2,
-  FlaskConical,
-  Factory,
-  Scan,
-} from "lucide-react";
+import { Target, Eye, Award, MapPin, Building2, FlaskConical, Factory, Scan } from "lucide-react";
+import { calibrationQuantities } from "@/lib/quantity-icons";
 
-const parameterIcons = [Thermometer, Droplets, Beaker, Weight, Wind];
 const capabilityIcons = [Building2, FlaskConical, Factory, Scan];
 
 export function generateStaticParams() {
@@ -52,14 +38,7 @@ export default async function AboutPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("about");
-
-  const parameters = [
-    t("parameterTemperature"),
-    t("parameterHumidity"),
-    t("parameterVolume"),
-    t("parameterMass"),
-    t("parameterFlow"),
-  ];
+  const tQuantities = await getTranslations("quantities");
 
   const capabilities = [
     t("capability1"),
@@ -166,20 +145,19 @@ export default async function AboutPage({
             </p>
           </FadeIn>
 
-          <FadeInStagger className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-5">
-            {parameters.map((label, i) => {
-              const Icon = parameterIcons[i];
-              return (
-                <FadeInStaggerItem key={label}>
-                  <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-background p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                    <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform group-hover:scale-110">
-                      <Icon className="size-6" />
-                    </div>
-                    <span className="text-sm font-medium">{label}</span>
+          <FadeInStagger className="mt-10 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-5">
+            {calibrationQuantities.map(({ key, Icon }) => (
+              <FadeInStaggerItem key={key}>
+                <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-background p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
+                  <div className="flex size-11 items-center justify-center rounded-full ring-2 ring-primary/20 text-primary transition-transform group-hover:scale-110">
+                    <Icon className="size-5" />
                   </div>
-                </FadeInStaggerItem>
-              );
-            })}
+                  <span className="text-sm font-medium">
+                    {tQuantities(key as "pressure")}
+                  </span>
+                </div>
+              </FadeInStaggerItem>
+            ))}
           </FadeInStagger>
         </div>
       </section>
