@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Persia Azma System",
   nameFa: "پرشیا آزما سیستم",
-  url: "https://persiaazma.com",
+  url: "https://persiancal.com",
   phones: ["071-36245649", "071-36359305", "09380679361"],
   whatsappNumber: "989380679361",
   email: "persia.azmasystem1@gmail.com",

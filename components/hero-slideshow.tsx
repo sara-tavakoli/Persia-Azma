@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 const images = [
   "/images/work/patient-monitor-calibration.jpg",
@@ -13,6 +14,7 @@ const images = [
 ];
 
 export function HeroSlideshow() {
+  const t = useTranslations("home");
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export function HeroSlideshow() {
         >
           <Image
             src={images[index]}
-            alt=""
+            alt={t("hero.title")}
             fill
             priority={index === 0}
             sizes="100vw"

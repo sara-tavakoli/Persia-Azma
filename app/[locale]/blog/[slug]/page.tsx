@@ -34,8 +34,16 @@ export async function generateMetadata({
     description: post.excerpt[locale],
     alternates: alternatesForSlugs(
       `/fa/blog/${post.slug.fa}`,
-      `/en/blog/${post.slug.en}`
+      `/en/blog/${post.slug.en}`,
+      locale
     ),
+    openGraph: {
+      title: post.title[locale],
+      description: post.excerpt[locale],
+      type: "article",
+      publishedTime: new Date(post.publishedAt).toISOString(),
+      images: [{ url: `${siteConfig.url}${getBlogCoverImage(post)}` }],
+    },
   };
 }
 
@@ -73,7 +81,7 @@ export default async function BlogPostPage({
       <FadeIn className="relative h-[45vh] min-h-72 w-full overflow-hidden">
         <Image
           src={getBlogCoverImage(post)}
-          alt=""
+          alt={post.title[locale]}
           fill
           priority
           sizes="100vw"

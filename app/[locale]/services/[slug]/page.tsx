@@ -37,8 +37,14 @@ export async function generateMetadata({
     description: service.shortDescription[locale],
     alternates: alternatesForSlugs(
       `/fa/services/${service.slug.fa}`,
-      `/en/services/${service.slug.en}`
+      `/en/services/${service.slug.en}`,
+      locale
     ),
+    openGraph: {
+      title: service.title[locale],
+      description: service.shortDescription[locale],
+      images: [{ url: `${siteConfig.url}${getServiceImage(service.id)}` }],
+    },
   };
 }
 
@@ -83,11 +89,43 @@ export default async function ServiceDetailPage({
     ],
   };
 
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.title[locale],
+    description: service.shortDescription[locale],
+    image: `${siteConfig.url}${getServiceImage(service.id)}`,
+    url: `${siteConfig.url}/${locale}/services/${slug}`,
+    serviceType: t(`categories.${service.category}`),
+    provider: {
+      "@type": "LocalBusiness",
+      name: siteConfig.name,
+      alternateName: siteConfig.nameFa,
+      url: siteConfig.url,
+      telephone: siteConfig.phones[0],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Shiraz",
+        addressRegion: "Fars",
+        addressCountry: "IR",
+        streetAddress: siteConfig.addressEn,
+      },
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Iran",
+    },
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
       />
       <section className="bg-noise relative overflow-hidden border-b border-border bg-muted/40">
         <FadeIn className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
@@ -117,7 +155,7 @@ export default async function ServiceDetailPage({
         <div className="relative aspect-21/9 overflow-hidden rounded-3xl shadow-lg ring-1 ring-black/5">
           <Image
             src={getServiceImage(service.id)}
-            alt=""
+            alt={service.title[locale]}
             fill
             sizes="(min-width: 768px) 768px, 100vw"
             className="object-cover"

@@ -213,7 +213,7 @@ export default async function HomePage({
                       <div className="relative aspect-16/9 w-full overflow-hidden">
                         <Image
                           src={getServiceImage(service.id)}
-                          alt=""
+                          alt={service.title[locale]}
                           fill
                           priority={index === 0}
                           sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
@@ -308,7 +308,7 @@ export default async function HomePage({
               <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
                 <Image
                   src="/images/facility-interior.jpg"
-                  alt=""
+                  alt={t("whyUsTitle")}
                   fill
                   sizes="(min-width: 1024px) 560px, 100vw"
                   className="object-cover"
@@ -451,7 +451,7 @@ export default async function HomePage({
                     <div className="relative aspect-16/9 w-full overflow-hidden">
                       <Image
                         src={getBlogCoverImage(post)}
-                        alt=""
+                        alt={post.title[locale]}
                         fill
                         sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"

@@ -33,7 +33,7 @@ export async function generateMetadata({
       template: `%s | ${t("siteName")}`,
     },
     description: t("defaultDescription"),
-    alternates: alternatesForPath(""),
+    alternates: alternatesForPath("", locale as "fa" | "en"),
     openGraph: {
       title: t("defaultTitle"),
       description: t("defaultDescription"),

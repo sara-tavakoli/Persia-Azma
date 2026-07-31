@@ -130,7 +130,8 @@
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Answers to common questions about our calibration services"
+    "subtitle": "Answers to common questions about our calibration services",
+    "imageAlt": "Documenting a calibration report in the laboratory"
   },
   "about": {
     "title": "About Persia Azma System",
@@ -152,7 +153,8 @@
     "capability3": "Oil, Gas, Petrochemical & Steel Industries",
     "capability4": "Pharmaceutical & Food Industries",
     "galleryTitle": "Our Work in Practice",
-    "gallerySubtitle": "Real photos of the Persia Azma System technical team performing calibration and quality control"
+    "gallerySubtitle": "Real photos of the Persia Azma System technical team performing calibration and quality control",
+    "introImageAlt": "Precision balance calibration in the Persia Azma System laboratory"
   },
   "quantities": {
     "pressure": "Pressure",

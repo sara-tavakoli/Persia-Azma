@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { SpotlightCard } from "@/components/spotlight-card";
 import { alternatesForPath } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -29,7 +30,12 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: alternatesForPath("/services"),
+    alternates: alternatesForPath("/services", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/work/patient-monitor-calibration.jpg` }],
+    },
   };
 }
 
@@ -60,7 +66,7 @@ export default async function ServicesPage({
                       <div className="relative aspect-16/9 w-full overflow-hidden">
                         <Image
                           src={getServiceImage(service.id)}
-                          alt=""
+                          alt={service.title[locale]}
                           fill
                           priority={index === 0}
                           sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"

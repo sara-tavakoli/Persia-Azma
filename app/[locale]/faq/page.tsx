@@ -27,7 +27,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: alternatesForPath("/faq"),
+    alternates: alternatesForPath("/faq", locale),
   };
 }
 
@@ -90,7 +90,7 @@ export default async function FaqPage({
             <div className="relative aspect-4/5 overflow-hidden rounded-3xl ring-1 ring-black/5">
               <Image
                 src="/images/faq-documentation.jpg"
-                alt=""
+                alt={t("imageAlt")}
                 fill
                 sizes="(min-width: 1024px) 400px, 100vw"
                 className="object-cover"

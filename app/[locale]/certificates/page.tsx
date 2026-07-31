@@ -28,7 +28,7 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: alternatesForPath("/certificates"),
+    alternates: alternatesForPath("/certificates", locale),
   };
 }
 

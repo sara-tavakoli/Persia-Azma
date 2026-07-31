@@ -9,6 +9,7 @@ import { getBlogCoverImage } from "@/lib/blog-images";
 import { routing } from "@/i18n/routing";
 import { Newspaper } from "lucide-react";
 import { alternatesForPath } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 
 export function generateStaticParams() {
@@ -25,7 +26,12 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: alternatesForPath("/blog"),
+    alternates: alternatesForPath("/blog", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/work/calibration-certificate.jpg` }],
+    },
   };
 }
 
@@ -59,7 +65,7 @@ export default async function BlogPage({
                     <div className="relative aspect-16/9 w-full overflow-hidden">
                       <Image
                         src={getBlogCoverImage(post)}
-                        alt=""
+                        alt={post.title[locale]}
                         fill
                         sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
                         className="object-cover transition-transform duration-300 group-hover:scale-105"

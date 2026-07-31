@@ -12,10 +12,22 @@ import { ExpertiseGrid } from "@/components/expertise-grid";
 const capabilityIcons = [Building2, FlaskConical, Factory, Scan];
 
 const galleryImages = [
-  "patient-monitor-calibration",
-  "syringe-pump-calibration",
-  "xray-equipment-qc",
-  "ph-meter-calibration",
+  {
+    key: "patient-monitor-calibration",
+    alt: { fa: "کالیبراسیون مانیتور علائم حیاتی بیمار", en: "Calibrating a patient vital-signs monitor" },
+  },
+  {
+    key: "syringe-pump-calibration",
+    alt: { fa: "کالیبراسیون سرنگ پمپ در بخش درمانی", en: "Calibrating a syringe pump" },
+  },
+  {
+    key: "xray-equipment-qc",
+    alt: { fa: "کنترل کیفیت دستگاه رادیولوژی", en: "Quality control of a radiology (X-ray) unit" },
+  },
+  {
+    key: "ph-meter-calibration",
+    alt: { fa: "کالیبراسیون دستگاه پی‌اچ‌متر آزمایشگاهی", en: "Calibrating a laboratory pH meter" },
+  },
 ];
 
 export function generateStaticParams() {
@@ -32,7 +44,12 @@ export async function generateMetadata({
   return {
     title: t("title"),
     description: t("subtitle"),
-    alternates: alternatesForPath("/about"),
+    alternates: alternatesForPath("/about", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/work/precision-balance-calibration.jpg` }],
+    },
   };
 }
 
@@ -69,7 +86,7 @@ export default async function AboutPage({
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
               <Image
                 src="/images/work/precision-balance-calibration.jpg"
-                alt=""
+                alt={t("introImageAlt")}
                 fill
                 sizes="(min-width: 1024px) 560px, 100vw"
                 className="object-cover"
@@ -193,12 +210,12 @@ export default async function AboutPage({
           </FadeIn>
 
           <FadeInStagger className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-            {galleryImages.map((name) => (
-              <FadeInStaggerItem key={name} className="group">
+            {galleryImages.map(({ key, alt }) => (
+              <FadeInStaggerItem key={key} className="group">
                 <div className="relative aspect-4/3 overflow-hidden rounded-xl shadow-sm ring-1 ring-black/5">
                   <Image
-                    src={`/images/work/${name}.jpg`}
-                    alt=""
+                    src={`/images/work/${key}.jpg`}
+                    alt={alt[locale]}
                     fill
                     sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
