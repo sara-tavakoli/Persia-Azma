@@ -20,6 +20,9 @@ import { getBlogCoverImage } from "@/lib/blog-images";
 import { ExpertiseGrid } from "@/components/expertise-grid";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
+import { HeroParallax } from "@/components/hero-parallax";
+import { ConnectorLine } from "@/components/connector-line";
+import { SpotlightCard } from "@/components/spotlight-card";
 import {
   ArrowLeft,
   ArrowRight,
@@ -88,7 +91,7 @@ export default async function HomePage({
     <>
       {/* Hero */}
       <section className="bg-hero-scrim relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
+        <HeroParallax>
           <Image
             src="/images/hero-lab.jpg"
             alt=""
@@ -97,7 +100,7 @@ export default async function HomePage({
             sizes="100vw"
             className="object-cover"
           />
-        </div>
+        </HeroParallax>
         <div className="relative mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32">
           <FadeIn>
             <Badge
@@ -195,40 +198,42 @@ export default async function HomePage({
             return (
               <FadeInStaggerItem key={service.id}>
                 <Link href={`/services/${service.slug[locale]}`} className="group block h-full">
-                  <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
-                    <div className="relative aspect-16/9 w-full overflow-hidden">
-                      <Image
-                        src={getServiceImage(service.id)}
-                        alt=""
-                        fill
-                        priority={index === 0}
-                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-transparent" />
-                      <div
-                        className={cn(
-                          "absolute bottom-3 flex size-10 items-center justify-center rounded-lg ring-1 backdrop-blur-sm start-3",
-                          palette.bg,
-                          palette.text,
-                          palette.ring
-                        )}
-                      >
-                        <ServiceIcon iconKey={service.iconKey} className="size-5" />
+                  <SpotlightCard className="h-full rounded-xl">
+                    <Card className="h-full overflow-hidden py-0 transition-all hover:-translate-y-1 hover:shadow-lg">
+                      <div className="relative aspect-16/9 w-full overflow-hidden">
+                        <Image
+                          src={getServiceImage(service.id)}
+                          alt=""
+                          fill
+                          priority={index === 0}
+                          sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-transparent" />
+                        <div
+                          className={cn(
+                            "absolute bottom-3 flex size-10 items-center justify-center rounded-lg ring-1 backdrop-blur-sm start-3",
+                            palette.bg,
+                            palette.text,
+                            palette.ring
+                          )}
+                        >
+                          <ServiceIcon iconKey={service.iconKey} className="size-5" />
+                        </div>
                       </div>
-                    </div>
-                    <CardHeader className="pt-4">
-                      <CardTitle>{service.title[locale]}</CardTitle>
-                      <CardDescription>
-                        {service.shortDescription[locale]}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent className="pb-4">
-                      <Badge variant="outline" className={cn(palette.text, "border-current/25")}>
-                        {tServices(`categories.${service.category}`)}
-                      </Badge>
-                    </CardContent>
-                  </Card>
+                      <CardHeader className="pt-4">
+                        <CardTitle>{service.title[locale]}</CardTitle>
+                        <CardDescription>
+                          {service.shortDescription[locale]}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="pb-4">
+                        <Badge variant="outline" className={cn(palette.text, "border-current/25")}>
+                          {tServices(`categories.${service.category}`)}
+                        </Badge>
+                      </CardContent>
+                    </Card>
+                  </SpotlightCard>
                 </Link>
               </FadeInStaggerItem>
             );
@@ -253,7 +258,7 @@ export default async function HomePage({
       </section>
 
       {/* How It Works */}
-      <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-2xl font-bold sm:text-3xl">
             {t("processTitle")}
@@ -262,6 +267,7 @@ export default async function HomePage({
         </FadeIn>
 
         <FadeInStagger className="relative mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <ConnectorLine />
           {process.map(({ title, body, Icon }, i) => (
             <FadeInStaggerItem
               key={title}
@@ -362,15 +368,17 @@ export default async function HomePage({
         <FadeInStagger className="mt-12 grid gap-5 sm:grid-cols-3">
           {certificates.map((cert) => (
             <FadeInStaggerItem key={cert.id}>
-              <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
-                <CardHeader>
-                  <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-foreground ring-1 ring-brand-teal/25">
-                    <BadgeCheck className="size-5" />
-                  </div>
-                  <CardTitle>{cert.title[locale]}</CardTitle>
-                  <CardDescription>{cert.description[locale]}</CardDescription>
-                </CardHeader>
-              </Card>
+              <SpotlightCard className="h-full rounded-xl">
+                <Card className="h-full transition-all hover:-translate-y-1 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="mb-2 flex size-11 items-center justify-center rounded-xl bg-brand-teal/15 text-brand-teal-foreground ring-1 ring-brand-teal/25">
+                      <BadgeCheck className="size-5" />
+                    </div>
+                    <CardTitle>{cert.title[locale]}</CardTitle>
+                    <CardDescription>{cert.description[locale]}</CardDescription>
+                  </CardHeader>
+                </Card>
+              </SpotlightCard>
             </FadeInStaggerItem>
           ))}
         </FadeInStagger>

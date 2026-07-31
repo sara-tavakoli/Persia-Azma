@@ -42,6 +42,7 @@
     "sendRequest": "Send request",
     "loading": "Loading...",
     "backToHome": "Back to home",
+    "backToTop": "Back to top",
     "language": "Language"
   },
   "home": {
@@ -149,7 +150,9 @@
     "capability1": "Hospitals & Treatment Centers",
     "capability2": "Diagnostic Laboratories & Research Institutes",
     "capability3": "Oil, Gas, Petrochemical & Steel Industries",
-    "capability4": "Pharmaceutical & Food Industries"
+    "capability4": "Pharmaceutical & Food Industries",
+    "galleryTitle": "Our Work in Practice",
+    "gallerySubtitle": "Real photos of the Persia Azma System technical team performing calibration and quality control"
   },
   "quantities": {
     "pressure": "Pressure",
