@@ -21,6 +21,7 @@ import { ExpertiseGrid } from "@/components/expertise-grid";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
 import { HeroParallax } from "@/components/hero-parallax";
+import { HeroSlideshow } from "@/components/hero-slideshow";
 import { ConnectorLine } from "@/components/connector-line";
 import { SpotlightCard } from "@/components/spotlight-card";
 import {
@@ -92,14 +93,7 @@ export default async function HomePage({
       {/* Hero */}
       <section className="bg-hero-scrim relative overflow-hidden">
         <HeroParallax>
-          <Image
-            src="/images/hero-lab.jpg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+          <HeroSlideshow />
         </HeroParallax>
         <div className="relative mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32">
           <FadeIn>
@@ -332,7 +326,7 @@ export default async function HomePage({
       </section>
 
       {/* Industries we serve */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-2xl font-bold sm:text-3xl">
             {t("industriesTitle")}
@@ -355,7 +349,7 @@ export default async function HomePage({
       </section>
 
       {/* Certificates */}
-      <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <FadeIn className="mx-auto max-w-2xl text-center">
           <h2 className="font-heading text-2xl font-bold sm:text-3xl">
             {t("certificatesTitle")}
@@ -425,7 +419,7 @@ export default async function HomePage({
 
       {/* Blog teaser */}
       {blogPosts.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <FadeIn className="mx-auto max-w-2xl text-center">
             <h2 className="font-heading text-2xl font-bold sm:text-3xl">
               {t("blogTitle")}
