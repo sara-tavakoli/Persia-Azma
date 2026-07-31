@@ -44,11 +44,16 @@ import {
   Droplets,
   Pill,
   Building2,
+  Target,
+  Users,
+  CalendarClock,
+  Layers,
 } from "lucide-react";
 
 const whyUsIcons = [ShieldCheck, Award, MapPinned, UserCheck];
 const processIcons = [ClipboardList, SearchCheck, Gauge, FileCheck2];
 const industryIcons = [Flame, Factory, Anvil, Zap, Anchor, Droplets, Pill, Building2];
+const statIcons = [Target, Users, CalendarClock, Layers];
 
 export default async function HomePage({
   params,
@@ -99,8 +104,9 @@ export default async function HomePage({
           <FadeIn>
             <Badge
               variant="secondary"
-              className="mb-4 border border-white/20 bg-white/10 text-white backdrop-blur-sm"
+              className="mb-4 gap-1.5 border border-white/20 bg-white/10 text-white backdrop-blur-sm"
             >
+              <ShieldCheck className="size-3.5" />
               {t("hero.eyebrow")}
             </Badge>
             <h1 className="font-heading text-4xl font-bold tracking-tight text-balance text-white sm:text-5xl">
@@ -142,14 +148,24 @@ export default async function HomePage({
                 categoryColorClasses.industrial,
                 categoryColorClasses.consulting,
               ][i % 4];
+              const StatIcon = statIcons[i % 4];
               return (
                 <FadeInStaggerItem key={stat.key}>
                   <div
                     className={cn(
-                      "rounded-2xl border border-border/60 bg-card p-5 text-center shadow-sm ring-1",
+                      "group rounded-2xl border border-border/60 bg-card p-5 text-center shadow-sm ring-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
                       palette.ring
                     )}
                   >
+                    <div
+                      className={cn(
+                        "mx-auto mb-3 flex size-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
+                        palette.bg,
+                        palette.text
+                      )}
+                    >
+                      <StatIcon className="size-5" />
+                    </div>
                     <Counter
                       value={stat.value}
                       decimals={stat.decimals}
