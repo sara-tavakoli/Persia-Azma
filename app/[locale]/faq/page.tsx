@@ -68,19 +68,7 @@ export default async function FaqPage({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-start">
-          <FadeIn className="lg:sticky lg:top-24">
-            <div className="relative aspect-4/5 overflow-hidden rounded-3xl ring-1 ring-black/5">
-              <Image
-                src="/images/faq-documentation.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 400px, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </FadeIn>
-
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
           <FadeInStagger>
             <Accordion>
               {faqs.map((faq) => (
@@ -97,6 +85,18 @@ export default async function FaqPage({
               ))}
             </Accordion>
           </FadeInStagger>
+
+          <FadeIn className="lg:sticky lg:top-24">
+            <div className="relative aspect-4/5 overflow-hidden rounded-3xl ring-1 ring-black/5">
+              <Image
+                src="/images/faq-documentation.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 400px, 100vw"
+                className="object-cover"
+              />
+            </div>
+          </FadeIn>
         </div>
       </section>
     </>
