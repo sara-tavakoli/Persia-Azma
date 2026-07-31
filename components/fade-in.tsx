@@ -5,7 +5,11 @@ import type { ReactNode } from "react";
 
 // once: true means each section reveals the first time it scrolls into
 // view and then stays visible - never re-hides, never re-triggers.
-const viewport = { once: true, amount: 0.2 } as const;
+// amount is deliberately tiny (not e.g. 0.2): for a tall multi-row grid,
+// a 20%-of-the-whole-container threshold isn't met until the container is
+// mostly scrolled past, leaving a large blank gap on mobile before content
+// appears. Triggering as soon as any part is visible reveals it promptly.
+const viewport = { once: true, amount: 0.01, margin: "0px 0px -60px 0px" } as const;
 
 export function FadeIn({
   children,
