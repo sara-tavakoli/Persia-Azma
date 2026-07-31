@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 const images = [
   "/images/work/patient-monitor-calibration.jpg",
   "/images/work/ct-scanner-qc.jpg",
-  "/images/work/autoclave-validation.jpg",
+  "/images/work/precision-balance-calibration.jpg",
   "/images/work/syringe-pump-calibration.jpg",
   "/images/work/xray-equipment-qc.jpg",
 ];

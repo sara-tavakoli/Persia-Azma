@@ -100,13 +100,13 @@ export default async function HomePage({
         <HeroParallax>
           <HeroSlideshow />
         </HeroParallax>
-        <div className="relative mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 sm:py-32">
+        <div className="relative mx-auto max-w-4xl px-4 py-16 text-center sm:px-6 sm:py-20">
           <FadeIn>
             <Badge
               variant="secondary"
               className="mb-4 gap-1.5 border border-white/20 bg-white/10 text-white backdrop-blur-sm"
             >
-              <ShieldCheck className="size-3.5" />
+              <ShieldCheck className="size-4 text-green-400 drop-shadow-[0_0_6px_rgba(74,222,128,0.65)]" />
               {t("hero.eyebrow")}
             </Badge>
             <h1 className="font-heading text-4xl font-bold tracking-tight text-balance text-white sm:text-5xl">
@@ -139,7 +139,7 @@ export default async function HomePage({
 
       {/* Stats */}
       <section className="border-b border-border bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <FadeInStagger className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {homeStats.map((stat, i) => {
               const palette = [

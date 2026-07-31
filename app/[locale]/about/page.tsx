@@ -14,7 +14,7 @@ const capabilityIcons = [Building2, FlaskConical, Factory, Scan];
 const galleryImages = [
   "patient-monitor-calibration",
   "syringe-pump-calibration",
-  "autoclave-validation",
+  "xray-equipment-qc",
   "ph-meter-calibration",
 ];
 
