@@ -174,15 +174,23 @@ export default async function HomePage({
 
       {/* Services */}
       <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-        <FadeIn className="mx-auto max-w-2xl text-center">
-          <h2 className="font-heading text-2xl font-bold sm:text-3xl">
-            {t("servicesTitle")}
-          </h2>
-          <p className="mt-3 text-muted-foreground">{t("servicesSubtitle")}</p>
+        <FadeIn className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div className="max-w-2xl text-start">
+            <h2 className="font-heading text-2xl font-bold sm:text-3xl">
+              {t("servicesTitle")}
+            </h2>
+            <p className="mt-3 text-muted-foreground">{t("servicesSubtitle")}</p>
+          </div>
+          <Link
+            href="/services"
+            className={cn(buttonVariants({ variant: "outline" }), "shrink-0")}
+          >
+            {tCommon("viewAll")}
+          </Link>
         </FadeIn>
 
         <FadeInStagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => {
+          {services.slice(0, 6).map((service, index) => {
             const palette = categoryColorClasses[service.category];
             return (
               <FadeInStaggerItem key={service.id}>
