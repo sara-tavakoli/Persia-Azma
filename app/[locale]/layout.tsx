@@ -41,7 +41,7 @@ export async function generateMetadata({
       siteName: t("siteName"),
       locale: locale === "fa" ? "fa_IR" : "en_US",
       type: "website",
-      images: [{ url: "/brand/logo-alt.png", width: 548, height: 195 }],
+      images: [{ url: "/brand/logo-main.png", width: 300, height: 300 }],
     },
   };
 }
