@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { alternatesForPath } from "@/lib/seo";
 import { Target, Eye, Award, MapPin, Building2, FlaskConical, Factory, Scan } from "lucide-react";
-import { calibrationQuantities } from "@/lib/quantity-icons";
+import { ExpertiseGrid } from "@/components/expertise-grid";
 
 const capabilityIcons = [Building2, FlaskConical, Factory, Scan];
 
@@ -145,20 +145,9 @@ export default async function AboutPage({
             </p>
           </FadeIn>
 
-          <FadeInStagger className="mt-10 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-5">
-            {calibrationQuantities.map(({ key, Icon }) => (
-              <FadeInStaggerItem key={key}>
-                <div className="group flex flex-col items-center gap-3 rounded-2xl border border-border/60 bg-background p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                  <div className="flex size-11 items-center justify-center rounded-full ring-2 ring-primary/20 text-primary transition-transform group-hover:scale-110">
-                    <Icon className="size-5" />
-                  </div>
-                  <span className="text-sm font-medium">
-                    {tQuantities(key as "pressure")}
-                  </span>
-                </div>
-              </FadeInStaggerItem>
-            ))}
-          </FadeInStagger>
+          <div className="mt-10">
+            <ExpertiseGrid getLabel={(key) => tQuantities(key as "pressure")} />
+          </div>
         </div>
       </section>
 
