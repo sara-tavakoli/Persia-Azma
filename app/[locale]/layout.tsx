@@ -12,6 +12,7 @@ import { AnnouncementBar } from "@/components/announcement-bar";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { BackToTop } from "@/components/back-to-top";
 import { Toaster } from "@/components/ui/sonner";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -119,6 +120,7 @@ export default async function LocaleLayout({
           <BackToTop />
           <Toaster />
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
