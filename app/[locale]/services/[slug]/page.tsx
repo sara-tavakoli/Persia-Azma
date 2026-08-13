@@ -31,7 +31,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const service = await getServiceBySlug(locale, slug);
-  if (!service) return {};
+  if (!service) notFound();
   return {
     title: service.title[locale],
     description: service.shortDescription[locale],

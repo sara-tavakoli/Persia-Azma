@@ -28,7 +28,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
   const post = await getBlogPostBySlug(locale, slug);
-  if (!post) return {};
+  if (!post) notFound();
   return {
     title: post.title[locale],
     description: post.excerpt[locale],
