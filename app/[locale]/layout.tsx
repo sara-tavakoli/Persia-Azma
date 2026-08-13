@@ -67,6 +67,10 @@ export default async function LocaleLayout({
     "@type": "LocalBusiness",
     name: siteConfig.name,
     alternateName: siteConfig.nameFa,
+    description:
+      locale === "fa"
+        ? "شرکت کالیبراسیون و کنترل کیفیت تجهیزات پزشکی، تصویربرداری، صنعتی و آزمایشگاهی در شیراز و جنوب کشور."
+        : "Calibration and quality-control company for medical, imaging, industrial, and laboratory equipment in Shiraz and southern Iran.",
     url: siteConfig.url,
     logo: `${siteConfig.url}/brand/logo-main.png`,
     image: `${siteConfig.url}/brand/logo-alt.png`,
@@ -79,6 +83,11 @@ export default async function LocaleLayout({
       addressCountry: "IR",
       streetAddress: siteConfig.addressEn,
     },
+    areaServed: [
+      { "@type": "City", name: "Shiraz" },
+      { "@type": "AdministrativeArea", name: "Fars Province" },
+      { "@type": "Place", name: "Southern Iran" },
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
