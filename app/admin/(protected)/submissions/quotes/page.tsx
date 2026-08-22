@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { StatusSelect } from "@/components/admin/status-select";
+import { MessageCell } from "@/components/admin/message-cell";
 import { updateQuoteRequestStatus } from "./actions";
 import { Paperclip } from "lucide-react";
 
@@ -62,7 +63,7 @@ export default async function AdminQuoteRequestsPage() {
                   {req.serviceInterest || "—"}
                 </TableCell>
                 <TableCell className="max-w-xs text-muted-foreground">
-                  <p className="line-clamp-2">{req.message}</p>
+                  <MessageCell message={req.message} />
                 </TableCell>
                 <TableCell>
                   {req.attachments.length > 0 ? (

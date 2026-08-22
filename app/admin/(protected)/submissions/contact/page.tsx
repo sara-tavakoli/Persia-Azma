@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { StatusSelect } from "@/components/admin/status-select";
+import { MessageCell } from "@/components/admin/message-cell";
 import { updateContactSubmissionStatus } from "./actions";
 
 const statusOptions = [
@@ -48,7 +49,7 @@ export default async function AdminContactSubmissionsPage() {
                   </div>
                 </TableCell>
                 <TableCell className="max-w-xs text-muted-foreground">
-                  <p className="line-clamp-2">{sub.message}</p>
+                  <MessageCell message={sub.message} />
                 </TableCell>
                 <TableCell className="whitespace-nowrap text-muted-foreground">
                   {new Date(sub.createdAt).toLocaleDateString("fa-IR")}
