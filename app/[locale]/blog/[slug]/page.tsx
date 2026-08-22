@@ -94,7 +94,7 @@ export default async function BlogPostPage({
               {post.title[locale]}
             </h1>
             <p className="mt-3 text-sm text-white/80">
-              {t("by")} {post.author} —{" "}
+              {t("by")} {post.author} ·{" "}
               {new Date(post.publishedAt).toLocaleDateString(
                 locale === "fa" ? "fa-IR" : "en-US"
               )}
