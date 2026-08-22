@@ -189,7 +189,7 @@
       "serviceInterest": "خدمت مورد نظر",
       "message": "پیام شما",
       "attachment": "فایل پیوست (اختیاری)",
-      "attachmentHint": "فرمت‌های مجاز: PDF، JPG، PNG — حداکثر ۱۰ مگابایت",
+      "attachmentHint": "فرمت‌های مجاز: PDF، JPG، PNG (حداکثر ۱۰ مگابایت)",
       "submit": "ارسال",
       "submitting": "در حال ارسال...",
       "success": "پیام شما با موفقیت ارسال شد. به زودی با شما تماس خواهیم گرفت.",
