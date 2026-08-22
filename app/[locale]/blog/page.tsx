@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBlogPosts } from "@/lib/data";
 import { getBlogCoverImage } from "@/lib/blog-images";
@@ -44,10 +45,15 @@ export default async function BlogPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("blog");
+  const tNav = await getTranslations("nav");
   const posts = await getBlogPosts(locale);
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("blog") }]}
+      />
       <PageHero title={t("title")} subtitle={t("subtitle")} />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

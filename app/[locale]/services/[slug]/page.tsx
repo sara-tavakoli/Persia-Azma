@@ -12,6 +12,7 @@ import { getServiceBySlug, getServices } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { FadeIn } from "@/components/fade-in";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { alternatesForSlugs } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { getServiceImage } from "@/lib/service-images";
@@ -64,30 +65,10 @@ export default async function ServiceDetailPage({
   const tNav = await getTranslations("nav");
   const palette = categoryColorClasses[service.category];
 
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: tNav("home"),
-        item: `${siteConfig.url}/${locale}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: tNav("services"),
-        item: `${siteConfig.url}/${locale}/services`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: service.title[locale],
-        item: `${siteConfig.url}/${locale}/services/${slug}`,
-      },
-    ],
-  };
+  const allServices = await getServices();
+  const relatedServices = allServices
+    .filter((s) => s.id !== service.id && s.category === service.category)
+    .slice(0, 3);
 
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -121,11 +102,15 @@ export default async function ServiceDetailPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { label: tNav("home"), href: "/" },
+          { label: tNav("services"), href: "/services" },
+          { label: service.title[locale] },
+        ]}
       />
       <section className="bg-noise relative overflow-hidden border-b border-border bg-muted/40">
         <FadeIn className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
@@ -169,6 +154,41 @@ export default async function ServiceDetailPage({
             {service.body[locale]}
           </ReactMarkdown>
         </article>
+
+        {relatedServices.length > 0 && (
+          <div className="mt-12">
+            <h2 className="font-heading text-xl font-semibold">
+              {t("relatedServices")}
+            </h2>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+              {relatedServices.map((related) => {
+                const relatedPalette = categoryColorClasses[related.category];
+                return (
+                  <li key={related.id}>
+                    <Link
+                      href={`/services/${related.slug[locale]}`}
+                      className="group flex h-full flex-col gap-2 rounded-xl border border-border p-4 transition-colors hover:border-primary/40 hover:bg-muted/40"
+                    >
+                      <div
+                        className={cn(
+                          "flex size-9 items-center justify-center rounded-lg ring-1",
+                          relatedPalette.bg,
+                          relatedPalette.text,
+                          relatedPalette.ring
+                        )}
+                      >
+                        <ServiceIcon iconKey={related.iconKey} className="size-4" />
+                      </div>
+                      <span className="font-medium group-hover:text-primary">
+                        {related.title[locale]}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         <div className="mt-12 flex flex-col items-center gap-4 rounded-2xl bg-muted/50 p-8 text-center">
           <h2 className="font-heading text-xl font-semibold">

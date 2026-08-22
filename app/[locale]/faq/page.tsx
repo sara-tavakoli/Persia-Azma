@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   Accordion,
   AccordionContent,
@@ -9,6 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getFaqs } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { alternatesForPath } from "@/lib/seo";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
@@ -28,6 +30,11 @@ export async function generateMetadata({
     title: t("title"),
     description: t("subtitle"),
     alternates: alternatesForPath("/faq", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/faq-documentation.jpg` }],
+    },
   };
 }
 
@@ -40,6 +47,7 @@ export default async function FaqPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("faq");
+  const tNav = await getTranslations("nav");
   const faqs = await getFaqs();
 
   const jsonLd = {
@@ -57,6 +65,10 @@ export default async function FaqPage({
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("faq") }]}
+      />
       <PageHero
         title={t("title")}
         subtitle={t("subtitle")}

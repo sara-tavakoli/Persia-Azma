@@ -112,6 +112,7 @@
       "consulting": "Consulting & Training",
       "environmental": "Cleanroom & Air Quality"
     },
+    "relatedServices": "Related Services",
     "relatedCertificates": "Related Certificates",
     "relatedPosts": "Related Articles",
     "ctaTitle": "Request a consultation for this service"
@@ -121,7 +122,7 @@
     "subtitle": "Persia Azma System operates under the supervision and licensing of official national authorities"
   },
   "blog": {
-    "title": "Articles & News",
+    "title": "Calibration & Quality Control Articles",
     "subtitle": "The latest expert content on calibration and quality control",
     "by": "By",
     "publishedOn": "Published on",
@@ -129,12 +130,12 @@
     "empty": "No articles have been published yet."
   },
   "faq": {
-    "title": "Frequently Asked Questions",
+    "title": "Calibration & Quality Control FAQ",
     "subtitle": "Answers to common questions about our calibration services",
     "imageAlt": "Documenting a calibration report in the laboratory"
   },
   "about": {
-    "title": "About Persia Azma System",
+    "title": "About Our Calibration & Quality-Control Company",
     "subtitle": "A leader in quality control and calibration for medical, laboratory, and industrial equipment across southern Iran",
     "introBody": "Drawing on the technical expertise of experienced specialists and current metrology technology, Persia Azma System is one of the leading specialized centers for quality control and calibration of medical, laboratory, rehabilitation, medical-imaging, and industrial precision equipment in southern Iran. With a deep understanding of the technical and regulatory requirements of different industries, we deliver an integrated suite of technical and engineering services, to the highest international standards, for hospitals, diagnostic laboratories, treatment centers, research institutes, and major national industries.",
     "missionTitle": "Our Mission",
@@ -177,7 +178,7 @@
     "pdInstruments": "PD Instruments Calibration"
   },
   "contact": {
-    "title": "Contact Us",
+    "title": "Contact Our Calibration Company in Shiraz",
     "subtitle": "We're ready to answer your questions and requests",
     "tabContact": "Quick Message",
     "tabQuote": "Request Consultation & Calibration",

@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import {
   Tabs,
   TabsContent,
@@ -31,6 +32,11 @@ export async function generateMetadata({
     title: t("title"),
     description: t("subtitle"),
     alternates: alternatesForPath("/contact", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/contact-support.jpg` }],
+    },
   };
 }
 
@@ -46,6 +52,7 @@ export default async function ContactPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("contact");
+  const tNav = await getTranslations("nav");
   const services = await getServices();
   const serviceOptions = services.map((s) => ({
     slug: s.slug[locale],
@@ -54,6 +61,10 @@ export default async function ContactPage({
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("contact") }]}
+      />
       <PageHero
         title={t("title")}
         subtitle={t("subtitle")}

@@ -20,7 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const path of staticPaths) {
       entries.push({
         url: `${siteConfig.url}/${locale}${path}`,
-        lastModified: new Date(),
       });
     }
   }

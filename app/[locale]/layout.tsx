@@ -46,6 +46,9 @@ export async function generateMetadata({
       type: "website",
       images: [{ url: "/brand/logo-main.png", width: 300, height: 300 }],
     },
+    twitter: {
+      card: "summary_large_image",
+    },
   };
 }
 

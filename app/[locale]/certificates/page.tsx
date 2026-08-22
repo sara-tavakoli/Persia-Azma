@@ -1,8 +1,10 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCertificates } from "@/lib/data";
+import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { BadgeCheck, ShieldCheck, Stethoscope, Radiation, type LucideIcon } from "lucide-react";
 import { FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
@@ -29,6 +31,11 @@ export async function generateMetadata({
     title: t("title"),
     description: t("subtitle"),
     alternates: alternatesForPath("/certificates", locale),
+    openGraph: {
+      title: t("title"),
+      description: t("subtitle"),
+      images: [{ url: `${siteConfig.url}/images/work/calibration-certificate.jpg` }],
+    },
   };
 }
 
@@ -41,10 +48,15 @@ export default async function CertificatesPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("certificates");
+  const tNav = await getTranslations("nav");
   const certificates = await getCertificates();
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("certificates") }]}
+      />
       <PageHero title={t("title")} subtitle={t("subtitle")} />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

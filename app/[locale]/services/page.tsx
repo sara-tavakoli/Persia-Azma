@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ServiceIcon } from "@/components/service-icon";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -48,10 +49,15 @@ export default async function ServicesPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("services");
+  const tNav = await getTranslations("nav");
   const services = await getServices();
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("services") }]}
+      />
       <PageHero title={t("title")} subtitle={t("subtitle")} />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">

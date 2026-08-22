@@ -4,11 +4,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Link } from "@/i18n/navigation";
 import { getBlogPostBySlug, getBlogPosts } from "@/lib/data";
 import { getBlogCoverImage } from "@/lib/blog-images";
 import { alternatesForSlugs } from "@/lib/seo";
 import { siteConfig } from "@/lib/site-config";
 import { FadeIn } from "@/components/fade-in";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export async function generateStaticParams() {
   const [faPosts, enPosts] = await Promise.all([
@@ -59,6 +61,14 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const t = await getTranslations("blog");
+  const tNav = await getTranslations("nav");
+
+  const allPosts = await getBlogPosts(locale);
+  const otherPosts = allPosts.filter((p) => p.id !== post.id);
+  const sharedTagPosts = otherPosts.filter((p) =>
+    p.tags.some((tag) => post.tags.includes(tag))
+  );
+  const relatedPosts = (sharedTagPosts.length > 0 ? sharedTagPosts : otherPosts).slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -66,9 +76,20 @@ export default async function BlogPostPage({
     headline: post.title[locale],
     description: post.excerpt[locale],
     author: { "@type": "Person", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/brand/logo-main.png`,
+      },
+    },
     datePublished: new Date(post.publishedAt).toISOString(),
     dateModified: new Date(post.updatedAt).toISOString(),
-    mainEntityOfPage: `${siteConfig.url}/${locale}/blog/${slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/${locale}/blog/${slug}`,
+    },
     image: `${siteConfig.url}${getBlogCoverImage(post)}`,
   };
 
@@ -77,6 +98,14 @@ export default async function BlogPostPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Breadcrumbs
+        locale={locale}
+        items={[
+          { label: tNav("home"), href: "/" },
+          { label: tNav("blog"), href: "/blog" },
+          { label: post.title[locale] },
+        ]}
       />
       <FadeIn className="relative h-[45vh] min-h-72 w-full overflow-hidden">
         <Image
@@ -109,6 +138,37 @@ export default async function BlogPostPage({
             {post.body[locale]}
           </ReactMarkdown>
         </article>
+
+        {relatedPosts.length > 0 && (
+          <div className="mt-12 border-t border-border pt-8">
+            <h2 className="font-heading text-xl font-semibold">
+              {t("relatedPosts")}
+            </h2>
+            <ul className="mt-4 grid gap-4 sm:grid-cols-3">
+              {relatedPosts.map((related) => (
+                <li key={related.id}>
+                  <Link
+                    href={`/blog/${related.slug[locale]}`}
+                    className="group block overflow-hidden rounded-xl border border-border transition-colors hover:border-primary/40"
+                  >
+                    <div className="relative aspect-16/9 w-full overflow-hidden">
+                      <Image
+                        src={getBlogCoverImage(related)}
+                        alt={related.title[locale]}
+                        fill
+                        sizes="(min-width: 640px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                    </div>
+                    <p className="p-3 text-sm font-medium group-hover:text-primary">
+                      {related.title[locale]}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
     </>
   );

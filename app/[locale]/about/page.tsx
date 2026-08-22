@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
@@ -63,6 +64,7 @@ export default async function AboutPage({
 
   const t = await getTranslations("about");
   const tQuantities = await getTranslations("quantities");
+  const tNav = await getTranslations("nav");
 
   const capabilities = [
     t("capability1"),
@@ -73,6 +75,10 @@ export default async function AboutPage({
 
   return (
     <>
+      <Breadcrumbs
+        locale={locale}
+        items={[{ label: tNav("home"), href: "/" }, { label: tNav("about") }]}
+      />
       <PageHero title={t("title")} subtitle={t("subtitle")} />
 
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
