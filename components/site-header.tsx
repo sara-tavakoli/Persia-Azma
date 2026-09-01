@@ -51,7 +51,7 @@ export function SiteHeader() {
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
             aria-label="WhatsApp"
           >
-            <WhatsappIcon className="size-4" />
+            <WhatsappIcon className="size-6" />
           </a>
           <LanguageSwitcher />
           <Link

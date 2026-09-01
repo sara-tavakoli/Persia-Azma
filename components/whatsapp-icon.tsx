@@ -5,7 +5,7 @@ export function WhatsappIcon({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      fill="currentColor"
+      fill="#25D366"
       className={className}
       aria-hidden="true"
     >

@@ -61,7 +61,7 @@ export function MobileNav() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
           >
-            <WhatsappIcon className="size-4" />
+            <WhatsappIcon className="size-6" />
             WhatsApp
           </a>
         </nav>
