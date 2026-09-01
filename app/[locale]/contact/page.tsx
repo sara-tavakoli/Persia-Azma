@@ -13,7 +13,8 @@ import { QuoteForm } from "@/components/quote-form";
 import { getServices } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
-import { Phone, Mail, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 import { alternatesForPath } from "@/lib/seo";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 
@@ -154,7 +155,7 @@ export default async function ContactPage({
                 rel="noopener noreferrer"
                 className="flex w-fit items-center gap-2 rounded-lg bg-[#25D366]/10 px-4 py-2 text-sm font-medium text-[#128C7E] transition-transform hover:scale-105 hover:bg-[#25D366]/20"
               >
-                <MessageCircle className="size-4" />
+                <WhatsappIcon className="size-4" />
                 {t("info.whatsapp")}
               </a>
             </FadeInStaggerItem>

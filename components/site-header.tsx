@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { MessageCircle } from "lucide-react";
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
@@ -51,7 +51,7 @@ export function SiteHeader() {
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
             aria-label="WhatsApp"
           >
-            <MessageCircle />
+            <WhatsappIcon className="size-4" />
           </a>
           <LanguageSwitcher />
           <Link

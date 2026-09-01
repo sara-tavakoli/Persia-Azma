@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/table";
 import { StatusSelect } from "@/components/admin/status-select";
 import { MessageCell } from "@/components/admin/message-cell";
-import { updateContactSubmissionStatus } from "./actions";
+import { DeleteButton } from "@/components/admin/delete-button";
+import { updateContactSubmissionStatus, deleteContactSubmission } from "./actions";
 
 const statusOptions = [
   { value: "new", label: "جدید" },
@@ -36,6 +37,7 @@ export default async function AdminContactSubmissionsPage() {
               <TableHead>پیام</TableHead>
               <TableHead>تاریخ</TableHead>
               <TableHead>وضعیت</TableHead>
+              <TableHead>عملیات</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -61,11 +63,17 @@ export default async function AdminContactSubmissionsPage() {
                     onUpdate={updateContactSubmissionStatus.bind(null, sub.id)}
                   />
                 </TableCell>
+                <TableCell>
+                  <DeleteButton
+                    title={sub.name}
+                    onDelete={deleteContactSubmission.bind(null, sub.id)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
             {submissions.length === 0 && (
               <TableRow>
-                <TableCell colSpan={5} className="py-8 text-center text-muted-foreground">
+                <TableCell colSpan={6} className="py-8 text-center text-muted-foreground">
                   پیامی دریافت نشده است.
                 </TableCell>
               </TableRow>

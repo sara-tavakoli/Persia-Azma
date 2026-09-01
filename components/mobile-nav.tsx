@@ -14,7 +14,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Menu, MessageCircle } from "lucide-react";
+import { Menu } from "lucide-react";
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 export function MobileNav() {
   const t = useTranslations("nav");
@@ -60,7 +61,7 @@ export function MobileNav() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
           >
-            <MessageCircle className="size-4" />
+            <WhatsappIcon className="size-4" />
             WhatsApp
           </a>
         </nav>

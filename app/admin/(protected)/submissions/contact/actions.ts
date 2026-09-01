@@ -13,3 +13,9 @@ export async function updateContactSubmissionStatus(id: string, status: string) 
   await adminDb.collection("contactSubmissions").doc(id).update({ status: parsed });
   revalidatePath("/admin/submissions/contact");
 }
+
+export async function deleteContactSubmission(id: string) {
+  await requireSession();
+  await adminDb.collection("contactSubmissions").doc(id).delete();
+  revalidatePath("/admin/submissions/contact");
+}
