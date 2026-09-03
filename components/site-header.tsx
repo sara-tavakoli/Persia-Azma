@@ -61,7 +61,7 @@ export function SiteHeader() {
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
             aria-label="Bale"
           >
-            <BaleIcon className="size-6" />
+            <BaleIcon className="size-7" />
           </a>
           <LanguageSwitcher />
           <Link

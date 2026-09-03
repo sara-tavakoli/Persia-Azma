@@ -71,7 +71,7 @@ export function MobileNav() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
           >
-            <BaleIcon className="size-6" />
+            <BaleIcon className="size-7" />
             Bale
           </a>
         </nav>
