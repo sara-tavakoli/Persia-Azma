@@ -165,7 +165,7 @@ export default async function ContactPage({
                 href={`https://ble.ir/${siteConfig.baleNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-fit items-center gap-2 rounded-lg bg-[#00B894]/10 px-4 py-2 text-sm font-medium text-[#00966F] transition-transform hover:scale-105 hover:bg-[#00B894]/20"
+                className="flex w-fit items-center gap-2 rounded-lg bg-[#0ACA9B]/10 px-4 py-2 text-sm font-medium text-[#088768] transition-transform hover:scale-105 hover:bg-[#0ACA9B]/20"
               >
                 <BaleIcon className="size-5" />
                 {t("info.bale")}
