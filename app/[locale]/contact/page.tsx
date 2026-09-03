@@ -15,6 +15,7 @@ import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { WhatsappIcon } from "@/components/whatsapp-icon";
+import { BaleIcon } from "@/components/bale-icon";
 import { alternatesForPath } from "@/lib/seo";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 
@@ -157,6 +158,17 @@ export default async function ContactPage({
               >
                 <WhatsappIcon className="size-5" />
                 {t("info.whatsapp")}
+              </a>
+            </FadeInStaggerItem>
+            <FadeInStaggerItem>
+              <a
+                href={`https://ble.ir/${siteConfig.baleNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-fit items-center gap-2 rounded-lg bg-[#00B894]/10 px-4 py-2 text-sm font-medium text-[#00966F] transition-transform hover:scale-105 hover:bg-[#00B894]/20"
+              >
+                <BaleIcon className="size-5" />
+                {t("info.bale")}
               </a>
             </FadeInStaggerItem>
           </FadeInStagger>

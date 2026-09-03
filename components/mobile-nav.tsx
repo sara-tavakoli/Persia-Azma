@@ -16,6 +16,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { WhatsappIcon } from "@/components/whatsapp-icon";
+import { BaleIcon } from "@/components/bale-icon";
 
 export function MobileNav() {
   const t = useTranslations("nav");
@@ -63,6 +64,15 @@ export function MobileNav() {
           >
             <WhatsappIcon className="size-6" />
             WhatsApp
+          </a>
+          <a
+            href={`https://ble.ir/${siteConfig.baleNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
+          >
+            <BaleIcon className="size-6" />
+            Bale
           </a>
         </nav>
         <div className="mt-auto px-4 pb-4">

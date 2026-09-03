@@ -201,7 +201,8 @@
       "phones": "Phone",
       "email": "Email",
       "hours": "Working Hours",
-      "whatsapp": "WhatsApp"
+      "whatsapp": "WhatsApp",
+      "bale": "Bale"
     }
   },
   "admin": {

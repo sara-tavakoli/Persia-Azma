@@ -7,6 +7,7 @@ import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { WhatsappIcon } from "@/components/whatsapp-icon";
+import { BaleIcon } from "@/components/bale-icon";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
@@ -52,6 +53,15 @@ export function SiteHeader() {
             aria-label="WhatsApp"
           >
             <WhatsappIcon className="size-6" />
+          </a>
+          <a
+            href={`https://ble.ir/${siteConfig.baleNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
+            aria-label="Bale"
+          >
+            <BaleIcon className="size-6" />
           </a>
           <LanguageSwitcher />
           <Link
