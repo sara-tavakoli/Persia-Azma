@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/table";
 import { StatusSelect } from "@/components/admin/status-select";
 import { MessageCell } from "@/components/admin/message-cell";
-import { updateQuoteRequestStatus } from "./actions";
+import { DeleteButton } from "@/components/admin/delete-button";
+import { updateQuoteRequestStatus, deleteQuoteRequest } from "./actions";
 import { Paperclip } from "lucide-react";
 
 const statusOptions = [
@@ -40,6 +41,7 @@ export default async function AdminQuoteRequestsPage() {
               <TableHead>پیوست</TableHead>
               <TableHead>تاریخ</TableHead>
               <TableHead>وضعیت</TableHead>
+              <TableHead>عملیات</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -95,11 +97,17 @@ export default async function AdminQuoteRequestsPage() {
                     onUpdate={updateQuoteRequestStatus.bind(null, req.id)}
                   />
                 </TableCell>
+                <TableCell>
+                  <DeleteButton
+                    title={req.name}
+                    onDelete={deleteQuoteRequest.bind(null, req.id)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
             {requests.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7} className="py-8 text-center text-muted-foreground">
+                <TableCell colSpan={8} className="py-8 text-center text-muted-foreground">
                   درخواستی دریافت نشده است.
                 </TableCell>
               </TableRow>

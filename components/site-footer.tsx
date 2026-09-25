@@ -1,14 +1,16 @@
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { navLinks, siteConfig } from "@/lib/site-config";
+import { navLinks } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
-export function SiteFooter() {
-  const t = useTranslations("footer");
-  const tNav = useTranslations("nav");
-  const tMeta = useTranslations("meta");
-  const locale = useLocale();
+export async function SiteFooter() {
+  const t = await getTranslations("footer");
+  const tNav = await getTranslations("nav");
+  const tMeta = await getTranslations("meta");
+  const locale = await getLocale();
+  const settings = await getSiteSettings();
 
   return (
     <footer className="border-t border-border bg-muted/40">
@@ -56,12 +58,12 @@ export function SiteFooter() {
           <ul className="mt-4 flex flex-col gap-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 size-4 shrink-0" />
-              <span>{locale === "fa" ? t("address") : siteConfig.addressEn}</span>
+              <span>{locale === "fa" ? settings.addressFa : settings.addressEn}</span>
             </li>
             <li className="flex items-start gap-2">
               <Phone className="mt-0.5 size-4 shrink-0" />
               <span className="flex flex-col gap-1.5 py-0.5">
-                {siteConfig.phones.map((p) => (
+                {settings.phones.map((p) => (
                   <a key={p} href={`tel:${p.replace(/-/g, "")}`} dir="ltr" className="text-start hover:text-foreground">
                     {p}
                   </a>
@@ -70,8 +72,8 @@ export function SiteFooter() {
             </li>
             <li className="flex items-start gap-2">
               <Mail className="mt-0.5 size-4 shrink-0" />
-              <a href={`mailto:${siteConfig.email}`} dir="ltr" className="text-start hover:text-foreground">
-                {siteConfig.email}
+              <a href={`mailto:${settings.email}`} dir="ltr" className="text-start hover:text-foreground">
+                {settings.email}
               </a>
             </li>
             <li className="flex items-start gap-2">

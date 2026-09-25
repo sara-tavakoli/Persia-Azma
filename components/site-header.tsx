@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { navLinks, siteConfig } from "@/lib/site-config";
+import { navLinks } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { buttonVariants } from "@/components/ui/button";
@@ -9,9 +10,10 @@ import { cn } from "@/lib/utils";
 import { WhatsappIcon } from "@/components/whatsapp-icon";
 import { BaleIcon } from "@/components/bale-icon";
 
-export function SiteHeader() {
-  const t = useTranslations("nav");
-  const tMeta = useTranslations("meta");
+export async function SiteHeader() {
+  const t = await getTranslations("nav");
+  const tMeta = await getTranslations("meta");
+  const settings = await getSiteSettings();
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/90 backdrop-blur-sm">
@@ -46,7 +48,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <a
-            href={`https://wa.me/${siteConfig.whatsappNumber}`}
+            href={`https://wa.me/${settings.whatsappNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
@@ -55,7 +57,7 @@ export function SiteHeader() {
             <WhatsappIcon className="size-6" />
           </a>
           <a
-            href={`https://ble.ir/${siteConfig.baleNumber}`}
+            href={`https://ble.ir/${settings.baleNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "ghost", size: "icon" }))}
@@ -74,7 +76,10 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2 md:hidden">
           <LanguageSwitcher />
-          <MobileNav />
+          <MobileNav
+            whatsappNumber={settings.whatsappNumber}
+            baleNumber={settings.baleNumber}
+          />
         </div>
       </div>
     </header>

@@ -13,3 +13,9 @@ export async function updateQuoteRequestStatus(id: string, status: string) {
   await adminDb.collection("quoteRequests").doc(id).update({ status: parsed });
   revalidatePath("/admin/submissions/quotes");
 }
+
+export async function deleteQuoteRequest(id: string) {
+  await requireSession();
+  await adminDb.collection("quoteRequests").doc(id).delete();
+  revalidatePath("/admin/submissions/quotes");
+}

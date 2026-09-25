@@ -1,12 +1,14 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { adminDb } from "@/lib/firebase-admin";
+import { siteConfig } from "@/lib/site-config";
 import type {
   ServiceDoc,
   CertificateDoc,
   BlogPostDoc,
   FaqItemDoc,
   ClientLogoDoc,
+  SiteSettingsDoc,
 } from "@/lib/types";
 
 export type ServiceWithId = ServiceDoc & { id: string };
@@ -131,4 +133,26 @@ export const getFaqs = unstable_cache(
   },
   ["faqs"],
   { tags: ["faqs"], revalidate: 86400 }
+);
+
+// Falls back to the hardcoded siteConfig values if the admin hasn't saved
+// this doc yet, so the site never breaks on a fresh Firestore project.
+export const getSiteSettings = unstable_cache(
+  async (): Promise<SiteSettingsDoc> => {
+    const doc = await adminDb.collection("settings").doc("contact").get();
+    if (!doc.exists) {
+      return {
+        phones: [...siteConfig.phones],
+        whatsappNumber: siteConfig.whatsappNumber,
+        baleNumber: siteConfig.baleNumber,
+        email: siteConfig.email,
+        addressFa: siteConfig.addressFa,
+        addressEn: siteConfig.addressEn,
+        updatedAt: 0,
+      };
+    }
+    return doc.data() as SiteSettingsDoc;
+  },
+  ["site-settings"],
+  { tags: ["settings"], revalidate: 3600 }
 );

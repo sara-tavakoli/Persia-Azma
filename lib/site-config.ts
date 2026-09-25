@@ -2,12 +2,12 @@ export const siteConfig = {
   name: "Persia Azma System",
   nameFa: "پرشیا آزما سیستم",
   url: "https://persiancal.com",
-  phones: ["071-36245649", "071-36359305", "09380679361"],
-  whatsappNumber: "989380679361",
+  phones: ["071-36245649", "071-36359305", "09178587075"],
+  whatsappNumber: "989178587075",
   // Same number as whatsappNumber. ble.ir/<number> (international format,
   // no "+") redirects to a "chat with this number" page on web.bale.ai —
   // verified by comparing against a garbage identifier, which 404s instead.
-  baleNumber: "989380679361",
+  baleNumber: "989178587075",
   email: "persia.azmasystem1@gmail.com",
   addressFa: "شیراز، پارک علم و فناوری فارس",
   addressEn: "Fars Science & Technology Park, Shiraz, Iran",

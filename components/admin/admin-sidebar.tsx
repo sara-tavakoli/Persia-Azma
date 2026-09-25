@@ -12,6 +12,7 @@ import {
   BadgeCheck,
   Building2,
   Inbox,
+  Phone,
   LogOut,
 } from "lucide-react";
 
@@ -23,6 +24,7 @@ const navItems = [
   { href: "/admin/logos", label: "لوگوی مشتریان", icon: Building2 },
   { href: "/admin/submissions/contact", label: "پیام‌های تماس", icon: Inbox },
   { href: "/admin/submissions/quotes", label: "درخواست‌های مشاوره", icon: Inbox },
+  { href: "/admin/settings", label: "اطلاعات تماس", icon: Phone },
 ];
 
 export function AdminSidebar({ email }: { email?: string }) {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { navLinks, siteConfig } from "@/lib/site-config";
+import { navLinks } from "@/lib/site-config";
 import {
   Sheet,
   SheetContent,
@@ -18,7 +18,13 @@ import { Menu } from "lucide-react";
 import { WhatsappIcon } from "@/components/whatsapp-icon";
 import { BaleIcon } from "@/components/bale-icon";
 
-export function MobileNav() {
+export function MobileNav({
+  whatsappNumber,
+  baleNumber,
+}: {
+  whatsappNumber: string;
+  baleNumber: string;
+}) {
   const t = useTranslations("nav");
   const tMeta = useTranslations("meta");
   const [open, setOpen] = useState(false);
@@ -57,7 +63,7 @@ export function MobileNav() {
             </Link>
           ))}
           <a
-            href={`https://wa.me/${siteConfig.whatsappNumber}`}
+            href={`https://wa.me/${whatsappNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"
@@ -66,7 +72,7 @@ export function MobileNav() {
             WhatsApp
           </a>
           <a
-            href={`https://ble.ir/${siteConfig.baleNumber}`}
+            href={`https://ble.ir/${baleNumber}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-muted"

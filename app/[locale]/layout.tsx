@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { vazirmatn, inter } from "../fonts";
 import { siteConfig } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 import { alternatesForPath } from "@/lib/seo";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -67,6 +68,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const dir = locale === "fa" ? "rtl" : "ltr";
+  const settings = await getSiteSettings();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -80,14 +82,14 @@ export default async function LocaleLayout({
     url: siteConfig.url,
     logo: `${siteConfig.url}/brand/logo-main.png`,
     image: `${siteConfig.url}/brand/logo-alt.png`,
-    email: siteConfig.email,
-    telephone: siteConfig.phones,
+    email: settings.email,
+    telephone: settings.phones,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Shiraz",
       addressRegion: "Fars",
       addressCountry: "IR",
-      streetAddress: siteConfig.addressEn,
+      streetAddress: settings.addressEn,
     },
     areaServed: [
       { "@type": "City", name: "Shiraz" },

@@ -8,7 +8,7 @@ import { ServiceIcon } from "@/components/service-icon";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { getServiceBySlug, getServices } from "@/lib/data";
+import { getServiceBySlug, getServices, getSiteSettings } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { categoryColorClasses } from "@/lib/category-colors";
 import { FadeIn } from "@/components/fade-in";
@@ -70,6 +70,8 @@ export default async function ServiceDetailPage({
     .filter((s) => s.id !== service.id && s.category === service.category)
     .slice(0, 3);
 
+  const settings = await getSiteSettings();
+
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -83,13 +85,13 @@ export default async function ServiceDetailPage({
       name: siteConfig.name,
       alternateName: siteConfig.nameFa,
       url: siteConfig.url,
-      telephone: siteConfig.phones[0],
+      telephone: settings.phones[0],
       address: {
         "@type": "PostalAddress",
         addressLocality: "Shiraz",
         addressRegion: "Fars",
         addressCountry: "IR",
-        streetAddress: siteConfig.addressEn,
+        streetAddress: settings.addressEn,
       },
     },
     areaServed: {

@@ -97,3 +97,13 @@ export type FaqItemDoc = {
   order: number;
   isPublished: boolean;
 };
+
+export type SiteSettingsDoc = {
+  phones: string[];
+  whatsappNumber: string;
+  baleNumber: string;
+  email: string;
+  addressFa: string;
+  addressEn: string;
+  updatedAt: number;
+};

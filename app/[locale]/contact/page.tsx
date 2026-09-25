@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tabs";
 import { ContactForm } from "@/components/contact-form";
 import { QuoteForm } from "@/components/quote-form";
-import { getServices } from "@/lib/data";
+import { getServices, getSiteSettings } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -56,6 +56,7 @@ export default async function ContactPage({
   const t = await getTranslations("contact");
   const tNav = await getTranslations("nav");
   const services = await getServices();
+  const settings = await getSiteSettings();
   const serviceOptions = services.map((s) => ({
     slug: s.slug[locale],
     title: s.title[locale],
@@ -86,7 +87,7 @@ export default async function ContactPage({
                     {t("info.address")}
                   </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {locale === "fa" ? siteConfig.addressFa : siteConfig.addressEn}
+                    {locale === "fa" ? settings.addressFa : settings.addressEn}
                   </p>
                 </div>
               </div>
@@ -101,7 +102,7 @@ export default async function ContactPage({
                     {t("info.phones")}
                   </h2>
                   <div className="mt-1 flex flex-col gap-1">
-                    {siteConfig.phones.map((p) => (
+                    {settings.phones.map((p) => (
                       <a
                         key={p}
                         href={`tel:${p.replace(/-/g, "")}`}
@@ -125,11 +126,11 @@ export default async function ContactPage({
                     {t("info.email")}
                   </h2>
                   <a
-                    href={`mailto:${siteConfig.email}`}
+                    href={`mailto:${settings.email}`}
                     dir="ltr"
                     className="mt-1 block text-start text-sm text-muted-foreground hover:text-foreground"
                   >
-                    {siteConfig.email}
+                    {settings.email}
                   </a>
                 </div>
               </div>
@@ -151,7 +152,7 @@ export default async function ContactPage({
             </FadeInStaggerItem>
             <FadeInStaggerItem>
               <a
-                href={`https://wa.me/${siteConfig.whatsappNumber}`}
+                href={`https://wa.me/${settings.whatsappNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-fit items-center gap-2 rounded-lg bg-[#25D366]/10 px-4 py-2 text-sm font-medium text-[#128C7E] transition-transform hover:scale-105 hover:bg-[#25D366]/20"
@@ -162,7 +163,7 @@ export default async function ContactPage({
             </FadeInStaggerItem>
             <FadeInStaggerItem>
               <a
-                href={`https://ble.ir/${siteConfig.baleNumber}`}
+                href={`https://ble.ir/${settings.baleNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-fit items-center gap-2 rounded-lg bg-[#0ACA9B]/10 px-4 py-2 text-sm font-medium text-[#088768] transition-transform hover:scale-105 hover:bg-[#0ACA9B]/20"

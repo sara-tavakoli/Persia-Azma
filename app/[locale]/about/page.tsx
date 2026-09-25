@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { FadeIn, FadeInStagger, FadeInStaggerItem } from "@/components/fade-in";
 import { siteConfig } from "@/lib/site-config";
+import { getSiteSettings } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 import { alternatesForPath } from "@/lib/seo";
 import { Target, Eye, Award, MapPin, Building2, FlaskConical, Factory, Scan } from "lucide-react";
@@ -65,6 +66,7 @@ export default async function AboutPage({
   const t = await getTranslations("about");
   const tQuantities = await getTranslations("quantities");
   const tNav = await getTranslations("nav");
+  const settings = await getSiteSettings();
 
   const capabilities = [
     t("capability1"),
@@ -156,7 +158,7 @@ export default async function AboutPage({
                 {t("locationBody")}
               </p>
               <p className="mt-2 text-sm text-muted-foreground" dir="ltr">
-                {siteConfig.addressEn}
+                {settings.addressEn}
               </p>
             </div>
           </FadeInStaggerItem>
