@@ -142,28 +142,11 @@ export default async function HomePage({
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <FadeInStagger className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {homeStats.map((stat, i) => {
-              const palette = [
-                categoryColorClasses.medical,
-                categoryColorClasses.imaging,
-                categoryColorClasses.industrial,
-                categoryColorClasses.consulting,
-              ][i % 4];
               const StatIcon = statIcons[i % 4];
               return (
                 <FadeInStaggerItem key={stat.key}>
-                  <div
-                    className={cn(
-                      "group rounded-2xl border border-border/60 bg-card p-5 text-center shadow-sm ring-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
-                      palette.ring
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "mx-auto mb-3 flex size-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110",
-                        palette.bg,
-                        palette.text
-                      )}
-                    >
+                  <div className="group rounded-2xl border-2 border-[#D4AF37] bg-card p-5 text-center text-primary shadow-[0_1px_2px_rgba(30,58,138,0.08),0_12px_28px_-8px_rgba(30,58,138,0.25)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(30,58,138,0.10),0_22px_44px_-12px_rgba(30,58,138,0.40)]">
+                    <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 transition-transform duration-300 group-hover:scale-110">
                       <StatIcon className="size-5" />
                     </div>
                     <Counter
@@ -172,9 +155,9 @@ export default async function HomePage({
                       locale={locale}
                       prefix={locale === "fa" ? stat.symbolFa : ""}
                       suffix={locale === "en" ? stat.symbolEn : ""}
-                      className={cn("font-heading text-3xl font-bold", palette.text)}
+                      className="font-heading text-3xl font-bold text-primary"
                     />
-                    <div className="mt-1 text-sm text-muted-foreground">
+                    <div className="mt-1 text-sm font-bold text-primary">
                       {t(`stats.${stat.key}` as "stats.accuracy")}
                     </div>
                   </div>
