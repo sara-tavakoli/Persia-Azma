@@ -12,6 +12,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { AnnouncementBar } from "@/components/announcement-bar";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { BackToTop } from "@/components/back-to-top";
+import { NumberChangePopup } from "@/components/number-change-popup";
 import { Toaster } from "@/components/ui/sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "../globals.css";
@@ -135,6 +136,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <SiteFooter />
           <BackToTop />
+          <NumberChangePopup phone={settings.phones[2]} />
           <Toaster />
         </NextIntlClientProvider>
         <SpeedInsights />

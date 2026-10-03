@@ -9,6 +9,11 @@
     "text": "Persia Azma System holds ISO/IEC 17025 accreditation for the competence of testing and calibration laboratories.",
     "cta": "Read more"
   },
+  "numberPopup": {
+    "title": "Our phone number has changed",
+    "body": "Persia Azma System has a new phone number. Please use the new number:",
+    "close": "Got it"
+  },
   "notFound": {
     "title": "Page not found",
     "subtitle": "The address may be incorrect, or this page may have moved. You can head back home or browse our services.",
