@@ -3,6 +3,7 @@ import { adminDb } from "@/lib/firebase-admin";
 import type {
   ServiceDoc,
   CertificateDoc,
+  ProductDoc,
   BlogPostDoc,
   ClientLogoDoc,
   ContactSubmissionDoc,
@@ -33,6 +34,16 @@ export async function adminGetCertificate(id: string) {
   return doc.exists ? withId<CertificateDoc>(doc as FirebaseFirestore.QueryDocumentSnapshot) : null;
 }
 
+export async function adminListProducts() {
+  const snap = await adminDb.collection("products").orderBy("order", "asc").get();
+  return snap.docs.map((d) => withId<ProductDoc>(d));
+}
+
+export async function adminGetProduct(id: string) {
+  const doc = await adminDb.collection("products").doc(id).get();
+  return doc.exists ? withId<ProductDoc>(doc as FirebaseFirestore.QueryDocumentSnapshot) : null;
+}
+
 export async function adminListBlogPosts() {
   const snap = await adminDb.collection("blogPosts").orderBy("createdAt", "desc").get();
   return snap.docs.map((d) => withId<BlogPostDoc>(d));
@@ -59,9 +70,10 @@ export async function adminListQuoteRequests() {
 }
 
 export async function adminDashboardCounts() {
-  const [services, certificates, blogPosts, contactSubs, quoteReqs] = await Promise.all([
+  const [services, certificates, products, blogPosts, contactSubs, quoteReqs] = await Promise.all([
     adminDb.collection("services").count().get(),
     adminDb.collection("certificates").count().get(),
+    adminDb.collection("products").count().get(),
     adminDb.collection("blogPosts").count().get(),
     adminDb.collection("contactSubmissions").where("status", "==", "new").count().get(),
     adminDb.collection("quoteRequests").where("status", "==", "new").count().get(),
@@ -69,6 +81,7 @@ export async function adminDashboardCounts() {
   return {
     services: services.data().count,
     certificates: certificates.data().count,
+    products: products.data().count,
     blogPosts: blogPosts.data().count,
     newContactSubmissions: contactSubs.data().count,
     newQuoteRequests: quoteReqs.data().count,

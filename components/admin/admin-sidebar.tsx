@@ -10,6 +10,7 @@ import {
   Wrench,
   Newspaper,
   BadgeCheck,
+  ShoppingBag,
   Building2,
   Inbox,
   Phone,
@@ -19,6 +20,7 @@ import {
 const navItems = [
   { href: "/admin", label: "داشبورد", icon: LayoutDashboard },
   { href: "/admin/services", label: "خدمات", icon: Wrench },
+  { href: "/admin/products", label: "فروشگاه", icon: ShoppingBag },
   { href: "/admin/blog", label: "مقالات", icon: Newspaper },
   { href: "/admin/certificates", label: "گواهینامه‌ها", icon: BadgeCheck },
   { href: "/admin/logos", label: "لوگوی مشتریان", icon: Building2 },

@@ -23,9 +23,11 @@ type ServiceOption = { slug: string; title: string };
 export function QuoteForm({
   serviceOptions,
   defaultService,
+  defaultMessage,
 }: {
   serviceOptions: ServiceOption[];
   defaultService?: string;
+  defaultMessage?: string;
 }) {
   const t = useTranslations("contact.form");
   const locale = useLocale() as "fa" | "en";
@@ -46,7 +48,7 @@ export function QuoteForm({
       email: "",
       phone: "",
       serviceInterest: defaultService ?? "",
-      message: "",
+      message: defaultMessage ?? "",
     },
   });
 

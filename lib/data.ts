@@ -5,6 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 import type {
   ServiceDoc,
   CertificateDoc,
+  ProductDoc,
   BlogPostDoc,
   FaqItemDoc,
   ClientLogoDoc,
@@ -13,6 +14,7 @@ import type {
 
 export type ServiceWithId = ServiceDoc & { id: string };
 export type CertificateWithId = CertificateDoc & { id: string };
+export type ProductWithId = ProductDoc & { id: string };
 export type BlogPostWithId = BlogPostDoc & { id: string };
 export type FaqItemWithId = FaqItemDoc & { id: string };
 export type ClientLogoWithId = ClientLogoDoc & { id: string };
@@ -77,6 +79,36 @@ export const getCertificates = unstable_cache(
   ["certificates"],
   { tags: ["certificates"], revalidate: 86400 }
 );
+
+export const getProducts = unstable_cache(
+  async (): Promise<ProductWithId[]> => {
+    const snap = await adminDb
+      .collection("products")
+      .where("isPublished", "==", true)
+      .orderBy("order", "asc")
+      .get();
+    return snap.docs.map((d) => ({ id: d.id, ...(d.data() as ProductDoc) }));
+  },
+  ["products"],
+  { tags: ["products"], revalidate: 3600 }
+);
+
+// See note above getServiceBySlug — same reasoning applies here.
+export async function getProductBySlug(
+  locale: "fa" | "en",
+  rawSlug: string
+): Promise<ProductWithId | null> {
+  const slug = safeDecodeURIComponent(rawSlug);
+  const snap = await adminDb
+    .collection("products")
+    .where(`slug.${locale}`, "==", slug)
+    .where("isPublished", "==", true)
+    .limit(1)
+    .get();
+  if (snap.empty) return null;
+  const doc = snap.docs[0];
+  return { id: doc.id, ...(doc.data() as ProductDoc) };
+}
 
 // Not wrapped in unstable_cache — see note above getServiceBySlug;
 // this also takes a `locale` argument so was at risk of the same bug.

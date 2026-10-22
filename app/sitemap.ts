@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
-import { getServices, getBlogPosts } from "@/lib/data";
+import { getServices, getBlogPosts, getProducts } from "@/lib/data";
 import { routing } from "@/i18n/routing";
 
 const staticPaths = [
   "",
   "/about",
   "/services",
+  "/shop",
   "/certificates",
   "/blog",
   "/faq",
@@ -30,6 +31,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       entries.push({
         url: `${siteConfig.url}/${locale}/services/${service.slug[locale]}`,
         lastModified: new Date(service.updatedAt),
+      });
+    }
+  }
+
+  const products = await getProducts();
+  for (const locale of routing.locales) {
+    for (const product of products) {
+      entries.push({
+        url: `${siteConfig.url}/${locale}/shop/${product.slug[locale]}`,
+        lastModified: new Date(product.updatedAt),
       });
     }
   }

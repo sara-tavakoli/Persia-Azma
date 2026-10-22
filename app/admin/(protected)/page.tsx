@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { adminDashboardCounts } from "@/lib/admin-data";
-import { Wrench, BadgeCheck, Newspaper, Inbox } from "lucide-react";
+import { Wrench, BadgeCheck, Newspaper, Inbox, ShoppingBag } from "lucide-react";
 
 export default async function AdminDashboardPage() {
   const counts = await adminDashboardCounts();
@@ -9,6 +9,7 @@ export default async function AdminDashboardPage() {
   const tiles = [
     { label: "خدمات", value: counts.services, href: "/admin/services", icon: Wrench },
     { label: "گواهینامه‌ها", value: counts.certificates, href: "/admin/certificates", icon: BadgeCheck },
+    { label: "کالاهای فروشگاه", value: counts.products, href: "/admin/products", icon: ShoppingBag },
     { label: "مقالات", value: counts.blogPosts, href: "/admin/blog", icon: Newspaper },
     {
       label: "پیام‌های تماس جدید",

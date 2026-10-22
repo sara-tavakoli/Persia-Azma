@@ -23,6 +23,7 @@
     "home": "Home",
     "about": "About Us",
     "services": "Services",
+    "shop": "Shop",
     "certificates": "Certificates",
     "blog": "Blog",
     "faq": "FAQ",
@@ -121,6 +122,39 @@
     "relatedCertificates": "Related Certificates",
     "relatedPosts": "Related Articles",
     "ctaTitle": "Request a consultation for this service"
+  },
+  "shop": {
+    "title": "Equipment Shop",
+    "subtitle": "Calibrators, equipment and accessories available for sale",
+    "empty": "No products are listed right now. Contact us for an inquiry.",
+    "categories": {
+      "calibrator": "Calibrator",
+      "equipment": "Equipment",
+      "accessory": "Accessory"
+    },
+    "conditions": {
+      "new": "New",
+      "used": "Used"
+    },
+    "inStock": "In stock",
+    "outOfStock": "Out of stock",
+    "callForPrice": "Call for price",
+    "currency": "Toman",
+    "price": "Price",
+    "brand": "Brand",
+    "model": "Model",
+    "condition": "Condition",
+    "availability": "Availability",
+    "category": "Category",
+    "buyTitle": "Buy or request a price",
+    "buySubtitle": "Contact us to buy, get a price quote, or ask for more details.",
+    "buyWhatsapp": "Ask on WhatsApp",
+    "buyForm": "Send a purchase request",
+    "call": "Call us",
+    "whatsappMessage": "Hello, I have a question about \"{title}\":",
+    "inquiryMessage": "Purchase / price inquiry: {title}",
+    "relatedProducts": "Related products",
+    "all": "All"
   },
   "certificates": {
     "title": "Certificates & Accreditations",

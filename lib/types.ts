@@ -55,6 +55,30 @@ export type CertificateDoc = {
   updatedAt: number;
 };
 
+export type ProductCategory = "calibrator" | "equipment" | "accessory";
+
+export type ProductCondition = "new" | "used";
+
+export type ProductDoc = {
+  slug: LocalizedText;
+  title: LocalizedText;
+  shortDescription: LocalizedText;
+  body: LocalizedText;
+  category: ProductCategory;
+  brand: string;
+  model: string;
+  condition: ProductCondition;
+  // In Toman; null means "call for price".
+  price: number | null;
+  inStock: boolean;
+  // First image is the cover shown on the shop grid.
+  images: StoredFile[];
+  order: number;
+  isPublished: boolean;
+  createdAt: number;
+  updatedAt: number;
+};
+
 export type ClientLogoDoc = {
   name: string;
   logo: StoredFile;

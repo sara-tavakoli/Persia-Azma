@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tabs";
 import { ContactForm } from "@/components/contact-form";
 import { QuoteForm } from "@/components/quote-form";
-import { getServices, getSiteSettings } from "@/lib/data";
+import { getProductBySlug, getServices, getSiteSettings } from "@/lib/data";
 import { siteConfig } from "@/lib/site-config";
 import { routing } from "@/i18n/routing";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
@@ -47,13 +47,15 @@ export default async function ContactPage({
   searchParams,
 }: {
   params: Promise<{ locale: "fa" | "en" }>;
-  searchParams: Promise<{ service?: string }>;
+  searchParams: Promise<{ service?: string; product?: string }>;
 }) {
   const { locale } = await params;
-  const { service } = await searchParams;
+  const { service, product: productSlug } = await searchParams;
   setRequestLocale(locale);
 
   const t = await getTranslations("contact");
+  const tShop = await getTranslations("shop");
+  const product = productSlug ? await getProductBySlug(locale, productSlug) : null;
   const tNav = await getTranslations("nav");
   const services = await getServices();
   const settings = await getSiteSettings();
@@ -175,7 +177,7 @@ export default async function ContactPage({
           </FadeInStagger>
 
           <FadeIn delay={0.1}>
-            <Tabs defaultValue={service ? "quote" : "contact"}>
+            <Tabs defaultValue={service || product ? "quote" : "contact"}>
               <TabsList className="mb-4">
                 <TabsTrigger value="contact">{t("tabContact")}</TabsTrigger>
                 <TabsTrigger value="quote">{t("tabQuote")}</TabsTrigger>
@@ -187,6 +189,11 @@ export default async function ContactPage({
                 <QuoteForm
                   serviceOptions={serviceOptions}
                   defaultService={service}
+                  defaultMessage={
+                    product
+                      ? tShop("inquiryMessage", { title: product.title[locale] })
+                      : undefined
+                  }
                 />
               </TabsContent>
             </Tabs>
