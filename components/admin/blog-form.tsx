@@ -105,10 +105,10 @@ export function BlogForm({ post }: { post?: BlogPostWithId }) {
         </TabsContent>
       </Tabs>
 
-      <div className="flex items-center gap-3">
+      <Label className="w-fit cursor-pointer gap-3">
         <Switch checked={isPublished} onCheckedChange={setIsPublished} name="isPublished" />
-        <Label>منتشر شده (در سایت نمایش داده شود)</Label>
-      </div>
+        منتشر شده (در سایت نمایش داده شود)
+      </Label>
 
       <div className="flex gap-3">
         <Button type="submit" disabled={isPending}>

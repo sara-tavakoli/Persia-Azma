@@ -61,7 +61,7 @@ export function ProductForm({ product }: { product?: ProductWithId }) {
   const [category, setCategory] = useState(product?.category ?? "calibrator");
   const [condition, setCondition] = useState(product?.condition ?? "new");
   const [inStock, setInStock] = useState(product?.inStock ?? true);
-  const [isPublished, setIsPublished] = useState(product?.isPublished ?? false);
+  const [isPublished, setIsPublished] = useState(product?.isPublished ?? true);
   const [removed, setRemoved] = useState<Set<string>>(new Set());
 
   function toggleRemoved(storagePath: string) {
@@ -289,14 +289,14 @@ export function ProductForm({ product }: { product?: ProductWithId }) {
       </div>
 
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-3">
+        <Label className="w-fit cursor-pointer gap-3">
           <Switch checked={inStock} onCheckedChange={setInStock} name="inStock" />
-          <Label>موجود است</Label>
-        </div>
-        <div className="flex items-center gap-3">
+          موجود است
+        </Label>
+        <Label className="w-fit cursor-pointer gap-3">
           <Switch checked={isPublished} onCheckedChange={setIsPublished} name="isPublished" />
-          <Label>منتشر شده (در سایت نمایش داده شود)</Label>
-        </div>
+          منتشر شده (در سایت نمایش داده شود)
+        </Label>
       </div>
 
       <div className="flex gap-3">
