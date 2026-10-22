@@ -40,6 +40,24 @@ const MAX_UPLOAD_BYTES = 3.5 * 1024 * 1024;
 export function ProductForm({ product }: { product?: ProductWithId }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [tab, setTab] = useState<"fa" | "en">("fa");
+
+  // Both language tabs stay mounted (keepMounted) so every field is
+  // submitted. If the browser blocks submit on a required field in the
+  // hidden tab, switch to that tab so the admin can see what's missing.
+  function onInvalid(e: React.FormEvent<HTMLFormElement>) {
+    const name = (e.target as HTMLInputElement).name ?? "";
+    const lang = name.endsWith("En") ? "en" : name.endsWith("Fa") ? "fa" : null;
+    if (lang && lang !== tab) {
+      setTab(lang);
+      toast.error(
+        lang === "en"
+          ? "لطفاً فیلدهای بخش English را هم کامل کنید."
+          : "لطفاً فیلدهای بخش فارسی را کامل کنید.",
+        { id: "missing-locale-fields" }
+      );
+    }
+  }
   const [category, setCategory] = useState(product?.category ?? "calibrator");
   const [condition, setCondition] = useState(product?.condition ?? "new");
   const [inStock, setInStock] = useState(product?.inStock ?? true);
@@ -76,15 +94,15 @@ export function ProductForm({ product }: { product?: ProductWithId }) {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-6">
+    <form action={action} onInvalidCapture={onInvalid} className="flex flex-col gap-6">
       {product && <input type="hidden" name="id" value={product.id} />}
 
-      <Tabs defaultValue="fa">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as "fa" | "en")}>
         <TabsList>
           <TabsTrigger value="fa">فارسی</TabsTrigger>
           <TabsTrigger value="en">English</TabsTrigger>
         </TabsList>
-        <TabsContent value="fa" className="flex flex-col gap-4 pt-4">
+        <TabsContent keepMounted value="fa" className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="titleFa">نام کالا (فارسی)</Label>
             <Input id="titleFa" name="titleFa" defaultValue={product?.title.fa} required />
@@ -108,7 +126,7 @@ export function ProductForm({ product }: { product?: ProductWithId }) {
             <Textarea id="bodyFa" name="bodyFa" rows={10} defaultValue={product?.body.fa} />
           </div>
         </TabsContent>
-        <TabsContent value="en" className="flex flex-col gap-4 pt-4">
+        <TabsContent keepMounted value="en" className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="titleEn">Product name (English)</Label>
             <Input id="titleEn" name="titleEn" dir="ltr" defaultValue={product?.title.en} required />

@@ -15,6 +15,24 @@ import type { BlogPostWithId } from "@/lib/data";
 export function BlogForm({ post }: { post?: BlogPostWithId }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [tab, setTab] = useState<"fa" | "en">("fa");
+
+  // Both language tabs stay mounted (keepMounted) so every field is
+  // submitted. If the browser blocks submit on a required field in the
+  // hidden tab, switch to that tab so the admin can see what's missing.
+  function onInvalid(e: React.FormEvent<HTMLFormElement>) {
+    const name = (e.target as HTMLInputElement).name ?? "";
+    const lang = name.endsWith("En") ? "en" : name.endsWith("Fa") ? "fa" : null;
+    if (lang && lang !== tab) {
+      setTab(lang);
+      toast.error(
+        lang === "en"
+          ? "لطفاً فیلدهای بخش English را هم کامل کنید."
+          : "لطفاً فیلدهای بخش فارسی را کامل کنید.",
+        { id: "missing-locale-fields" }
+      );
+    }
+  }
   const [isPublished, setIsPublished] = useState(post?.isPublished ?? false);
 
   async function action(formData: FormData) {
@@ -30,7 +48,7 @@ export function BlogForm({ post }: { post?: BlogPostWithId }) {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-6">
+    <form action={action} onInvalidCapture={onInvalid} className="flex flex-col gap-6">
       {post && <input type="hidden" name="id" value={post.id} />}
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -44,12 +62,12 @@ export function BlogForm({ post }: { post?: BlogPostWithId }) {
         </div>
       </div>
 
-      <Tabs defaultValue="fa">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as "fa" | "en")}>
         <TabsList>
           <TabsTrigger value="fa">فارسی</TabsTrigger>
           <TabsTrigger value="en">English</TabsTrigger>
         </TabsList>
-        <TabsContent value="fa" className="flex flex-col gap-4 pt-4">
+        <TabsContent keepMounted value="fa" className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="titleFa">عنوان (فارسی)</Label>
             <Input id="titleFa" name="titleFa" defaultValue={post?.title.fa} required />
@@ -67,7 +85,7 @@ export function BlogForm({ post }: { post?: BlogPostWithId }) {
             <Textarea id="bodyFa" name="bodyFa" rows={12} defaultValue={post?.body.fa} required />
           </div>
         </TabsContent>
-        <TabsContent value="en" className="flex flex-col gap-4 pt-4">
+        <TabsContent keepMounted value="en" className="flex flex-col gap-4 pt-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="titleEn">Title (English)</Label>
             <Input id="titleEn" name="titleEn" dir="ltr" defaultValue={post?.title.en} required />
